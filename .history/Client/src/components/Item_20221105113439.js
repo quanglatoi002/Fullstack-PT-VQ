@@ -29,7 +29,7 @@ const Item = () => {
                         }}
                         onMouseLeave={() => setIsHoverHeart(false)}
                     >
-                        {isHoverHeart ? <RiHeartFill size={24} color="red" /> : <RiHeartLine size={24} />}
+                        {isHoverHeart ? <RiHeartFill size={24} color="pink" /> : <RiHeartLine size={24} />}
                     </span>
                 </span>
             </div>

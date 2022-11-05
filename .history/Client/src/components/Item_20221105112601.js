@@ -22,14 +22,8 @@ const Item = () => {
                 <img src={images[3]} alt="preview" className="w-[140px] h-[120px] object-cover" />
                 <span className="absolute bottom-2 left-[5px] bg-bg-overlay-50 text-white px-1 rounded">4 image</span>
                 <span>
-                    <span
-                        className="absolute bottom-1 right-[5px] text-white p-1 rounded text-[24px]"
-                        onMouseEnter={() => {
-                            setIsHoverHeart(true);
-                        }}
-                        onMouseLeave={() => setIsHoverHeart(false)}
-                    >
-                        {isHoverHeart ? <RiHeartFill size={24} color="red" /> : <RiHeartLine size={24} />}
+                    <span className="absolute bottom-1 right-[5px] text-white p-1 rounded text-[24px] ">
+                        <RiHeartLine size={24} />
                     </span>
                 </span>
             </div>

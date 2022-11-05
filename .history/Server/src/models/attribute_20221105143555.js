@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
             Attribute.hasOne(models.Post, {
                 foreignKey: "attributesId",
-                as: "attribute",
+                as: "images",
             });
         }
     }

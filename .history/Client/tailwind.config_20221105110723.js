@@ -15,7 +15,7 @@ module.exports = {
                 secondary3: '#ff6600',
                 secondary4: '#dc3545',
                 secondary_content: '#febb02',
-                'bg-overlay-50': 'rgba(0,0,0,.5)',
+                'bg-overlay-30': 'rgba(0,0,0,.5)',
             },
             maxWidth: {
                 1100: '1100px',

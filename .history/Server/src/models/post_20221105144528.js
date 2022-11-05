@@ -17,13 +17,12 @@ module.exports = (sequelize, DataTypes) => {
             Post.belongsTo(models.Attribute, {
                 foreignKey: "attributesId",
                 targetKey: "id",
-                as: "attributes",
             });
-            Post.belongsTo(models.User, {
-                foreignKey: "userId",
-                targetKey: "id",
-                as: "user",
-            });
+            // Post.belongsTo(models.User, {
+            //     foreignKey: "userId",
+            //     targetKey: "id",
+            //     as: "user",
+            // });
         }
     }
     Post.init(

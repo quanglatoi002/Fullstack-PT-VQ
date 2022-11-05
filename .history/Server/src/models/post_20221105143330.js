@@ -19,11 +19,11 @@ module.exports = (sequelize, DataTypes) => {
                 targetKey: "id",
                 as: "attributes",
             });
-            Post.belongsTo(models.User, {
-                foreignKey: "userId",
-                targetKey: "id",
-                as: "user",
-            });
+            // Post.belongsTo(models.User, {
+            //     foreignKey: "userId",
+            //     targetKey: "id",
+            //     as: "user",
+            // });
         }
     }
     Post.init(
