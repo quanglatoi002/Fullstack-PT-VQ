@@ -1,26 +1,24 @@
 import { memo, useState } from 'react';
 import icons from '~/utils/icons';
 
-const images = [
-    'https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2022/07/19/400e7ebd-5d88-48af-8599-0d074a1ee014_1658240494.jpg',
-    'https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2022/07/19/1379ebdf-eda5-4ef8-bb22-7da1d19551f2_1658240490.jpg',
-    'https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2022/07/19/6310726d-d075-4e35-b1cb-cf5616bf5212_1658240491.jpg',
-    'https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2022/07/19/9c60836e-26b2-4737-a6c8-60cb5187fa4c_1658240485.jpg',
-];
+const indexs = [0, 1, 2, 3];
 
 const { GrStar, RiHeartFill, RiHeartLine, BsBookmarkStarFill } = icons;
 
-const Item = () => {
+const Item = ({ images, user, title, star, description, attributes, address, id }) => {
     const [isHoverHeart, setIsHoverHeart] = useState(false);
 
     return (
-        <div className="w-full flex border-t-[2px] border-orange-600 p-4 ">
+        <div className="w-full flex border-t-[2px] border-orange-600 py-4 ">
             <div className="w-2/5 flex flex-wrap gap-[2px] items-center relative cursor-pointer">
-                <img src={images[0]} alt="preview" className="w-[140px] h-[120px] object-cover" />
-                <img src={images[1]} alt="preview" className="w-[140px] h-[120px] object-cover" />
-                <img src={images[2]} alt="preview" className="w-[140px] h-[120px] object-cover" />
-                <img src={images[3]} alt="preview" className="w-[140px] h-[120px] object-cover" />
-                <span className="absolute bottom-2 left-[5px] bg-bg-overlay-50 text-white px-1 rounded">4 image</span>
+                {images.length > 0 &&
+                    images
+                        .filter((i, index) => indexs.some((i) => i === index))
+                        ?.map((i, index) => {
+                            return <img key={index} src={i} alt="preview" className="w-[47%] h-[120px] object-cover" />;
+                        })}
+
+                <span className="absolute bottom-3 left-[8px] bg-bg-overlay-50 text-white px-1 rounded">{`${images.length} ảnh`}</span>
                 <span>
                     <span
                         className="absolute bottom-1 right-[5px] text-white p-1 rounded text-[24px]"
@@ -41,21 +39,18 @@ const Item = () => {
                         <GrStar className="star-item" size={18} color="#febb02" />
                         <GrStar className="star-item" size={18} color="#febb02" />
                         <GrStar className="star-item" size={18} color="#febb02" />
-                        Cho thuê phòng trọ 128/46 Thiên Phước, P.9, Q.Tân Bình (gần vòng xoay Lê Đại Hành)
+                        {title}
                     </div>
                     <div className="w-[10%] flex justify-end">
                         <BsBookmarkStarFill size={24} color="orange" />
                     </div>
                 </div>
                 <div className="my-2 flex items-center justify-between">
-                    <span className="font-bold text-green-600">1.8 triệu/tháng</span>
-                    <span>18m²</span>
-                    <span>Quận 8, Hồ Chí Minh</span>
+                    <span className="font-bold text-green-600">{attributes?.price}</span>
+                    <span>{attributes?.acreage}</span>
+                    <span>{address}</span>
                 </div>
-                <p className="text-gray-500">
-                    Cho thuê phòng trọ dạng chung cư mini P.16, Q.8, gần đại lộ Đông Tây, q5, q6. Phòng thoáng mát, yên
-                    tĩnh, có bếp, nhà vệ sinh riêng, cáp quang, wifi miễn phí, có…
-                </p>
+                <p className="text-gray-500 w-full h-[50px] text-ellipsis overflow-hidden">{description}</p>
                 <div className="flex items-center my-5 justify-between">
                     <div className="flex items-center gap-1">
                         <img
@@ -63,11 +58,11 @@ const Item = () => {
                             alt="avatar"
                             className="w-[30px] h-[30px] object-cover rounded-full"
                         ></img>
-                        <p>Quang Van</p>
+                        <p>{user?.name}</p>
                     </div>
                     <div className="flex items-center gap-1.5">
                         <button type="button" className="bg-blue-700 text-white rounded-md lg:p-1 p-0.5">
-                            Gọi 0986726726
+                            {`Gọi ${+user?.phone}`}
                         </button>
                         <button
                             type="button"

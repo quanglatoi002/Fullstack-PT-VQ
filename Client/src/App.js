@@ -3,7 +3,7 @@ import { Home, Login, RentalApartment, RentalHouse, RentalRoom, RentalSpace, Hom
 import { path } from '~/utils/constant';
 function App() {
     return (
-        <div className="h-screen w-screen">
+        <div className="">
             <Routes>
                 <Route path={path.HOME} element={<Home />}>
                     <Route path="*" element={<Homepage />} />

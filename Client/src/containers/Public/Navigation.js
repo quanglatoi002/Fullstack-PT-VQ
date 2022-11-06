@@ -19,7 +19,7 @@ const Navigation = () => {
         fetchCategories();
     }, []);
     return (
-        <div className="lg:w-screen w-full md:flex hidden lg:justify-center items-center h-[40px] text-white bg-secondary1">
+        <div className=" w-full md:flex hidden lg:justify-center items-center h-[40px] text-white bg-secondary1">
             <div className="max-w-1100 lg:odd:mr-[30.5rem] lg:mx-0 h-full flex items-center text-sm font-medium ">
                 <NavLink to={`/`} className={({ isAcctive }) => (isAcctive ? active : notActive)}>
                     Trang chủ

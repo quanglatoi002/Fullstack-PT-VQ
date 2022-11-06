@@ -5,6 +5,10 @@ const actionTypes = {
     LOGIN_SUCCESS: 'LOGIN_SUCCESS',
     LOGIN_FAIL: 'LOGIN_FAIL',
     LOGOUT: 'LOGOUT',
+
+    GET_POSTS: 'GET_POSTS',
+    GET_POSTS_LIMIT: 'GET_POSTS_LIMIT',
+    GET_NEW_POST: 'GET_NEW_POST',
 };
 
 export default actionTypes;

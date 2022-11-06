@@ -1,8 +1,20 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+// ======= !library =====
 import { Button, Item } from '~/components';
+import { getPosts } from '~/store/actions/post';
 
 const List = () => {
+    const dispatch = useDispatch();
+    // state.post called reducers/rootReducer/post <=> postReducer
+    const { posts } = useSelector((state) => state.post);
+
+    useEffect(() => {
+        dispatch(getPosts());
+    }, []);
+
     return (
-        <div className="w-full p-2 bg-white shadow-sm rounded-md">
+        <div className="w-full p-2 bg-white shadow-sm rounded-md px-6">
             <div>
                 <h4 className="text-xl font-semibold">Danh sách tin đăng</h4>
                 <span>Cập nhật: 12:05 25/08/2022</span>
@@ -13,9 +25,21 @@ const List = () => {
                 <Button bgColor="bg-gray-200" text="Mới nhất" />
             </div>
             <div className="items">
-                <Item />
-                <Item />
-                <Item />
+                {posts?.length > 0 &&
+                    posts.map((item) => {
+                        return (
+                            <Item
+                                key={item.id}
+                                address={item?.address}
+                                attributes={item?.attributes}
+                                description={JSON.parse(item?.description)}
+                                images={JSON.parse(item.images.image)}
+                                star={+item?.star}
+                                title={item?.title}
+                                user={item?.user}
+                            />
+                        );
+                    })}
             </div>
         </div>
     );
