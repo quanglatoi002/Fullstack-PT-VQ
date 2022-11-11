@@ -7,12 +7,11 @@ import { getPosts, getPostsLimit } from '~/store/actions/post';
 const List = () => {
     const dispatch = useDispatch();
     // state.post called reducers/rootReducer/post <=> postReducer
-    const { posts, count } = useSelector((state) => state.post);
+    const { posts } = useSelector((state) => state.post);
 
     useEffect(() => {
         dispatch(getPostsLimit(0));
     }, []);
-    console.log(count);
 
     return (
         <div className="w-full p-2 bg-white shadow-sm rounded-md px-6">

@@ -41,8 +41,8 @@ export const getPostsLimitService = (offset) =>
             const response = await db.Post.findAndCountAll({
                 raw: true,
                 nest: true,
-                offset: offset * +process.env.LIMIT || 0,
-                limit: +process.env.LIMIT, // limit = 5
+                offset,
+                limit: process.env.limit,
                 include: [
                     { model: db.Image, as: "images", attributes: ["image"] },
                     {

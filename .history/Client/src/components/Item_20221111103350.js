@@ -45,14 +45,10 @@ const Item = ({ images, user, title, star, description, attributes, address, id 
                         <BsBookmarkStarFill size={24} color="orange" />
                     </div>
                 </div>
-                <div className="my-2 flex items-center justify-between gap-3">
-                    <span className="font-bold text-green-600 whitespace-nowrap overflow-hidden text-ellipsis">
-                        {attributes?.price}
-                    </span>
-                    <span className="">{attributes?.acreage}</span>
-                    <span className=" whitespace-nowrap overflow-hidden text-ellipsis">{`${
-                        address.split(',')[address.split(',').length - 2]
-                    }${address.split(',')[address.split(',').length - 1]}`}</span>
+                <div className="my-2 flex items-center justify-between">
+                    <span className="font-bold text-green-600">{attributes?.price}</span>
+                    <span>{attributes?.acreage}</span>
+                    <span>{`${address.split(',')[address.split(',').length - 1]}`}</span>
                 </div>
                 <p className="text-gray-500 w-full h-[50px] text-ellipsis overflow-hidden">{description}</p>
                 <div className="flex items-center my-5 justify-between">

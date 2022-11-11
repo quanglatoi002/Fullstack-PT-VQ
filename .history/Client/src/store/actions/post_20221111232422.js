@@ -22,9 +22,10 @@ export const getPosts = () => async (dispatch) => {
         });
     }
 };
-export const getPostsLimit = (page) => async (dispatch) => {
+export const getPostsLimit = (query) => async (dispatch) => {
     try {
-        const response = await apiGetPostsLimit(page);
+        const response = await apiGetPostsLimit(query);
+        console.log(response);
         if (response?.data.err === 0) {
             dispatch({
                 type: actionTypes.GET_POSTS_LIMIT,
@@ -33,7 +34,7 @@ export const getPostsLimit = (page) => async (dispatch) => {
             });
         } else {
             dispatch({
-                type: actionTypes.sGET_POSTS_LIMIT,
+                type: actionTypes.GET_POSTS_LIMIT,
                 msg: response.data.msg,
             });
         }

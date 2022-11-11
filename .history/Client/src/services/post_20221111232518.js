@@ -19,6 +19,7 @@ export const apiGetPostsLimit = (page) =>
             const response = await axiosConfig({
                 method: 'get',
                 url: `/api/v1/post/limit?page=${page}`,
+                params: page,
             });
             resolve(response);
         } catch (error) {

@@ -17,9 +17,6 @@ module.exports = {
                 secondary_content: '#febb02',
                 'bg-overlay-50': 'rgba(0,0,0,.5)',
             },
-            flex: {
-                3: '3 3 0%',
-            },
             maxWidth: {
                 1100: '1100px',
             },

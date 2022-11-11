@@ -46,7 +46,7 @@ const Item = ({ images, user, title, star, description, attributes, address, id 
                     </div>
                 </div>
                 <div className="my-2 flex items-center justify-between gap-3">
-                    <span className="font-bold text-green-600 whitespace-nowrap overflow-hidden text-ellipsis">
+                    <span className="font-bold flex-3 text-green-600 whitespace-nowrap overflow-hidden text-ellipsis">
                         {attributes?.price}
                     </span>
                     <span className="">{attributes?.acreage}</span>
