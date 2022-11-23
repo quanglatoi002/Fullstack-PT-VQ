@@ -55,7 +55,7 @@ import { getPosts, getPostsLimit } from '~/store/actions/post';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
-const List = ({ page, categoryCode }) => {
+const List = ({ categoryCode }) => {
     const dispatch = useDispatch();
     const [searchParams] = useSearchParams();
     const { posts } = useSelector((state) => state.post);

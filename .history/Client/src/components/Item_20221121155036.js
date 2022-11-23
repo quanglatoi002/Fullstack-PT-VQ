@@ -1,6 +1,7 @@
 import { memo, useState } from 'react';
 import icons from '~/utils/icons';
 import { useNavigate, Link } from 'react-router-dom';
+import { formatVietnameseToString } from '../ultils/Common/formatVietnameseToString';
 
 const indexs = [0, 1, 2, 3];
 
@@ -10,10 +11,9 @@ const Item = ({ images, user, title, star, description, attributes, address, id 
     const [isHoverHeart, setIsHoverHeart] = useState(false);
 
     const handleStar = (star) => {
-        let stars = [];
-        for (let i = 1; i <= +star; i++) stars.push(<GrStar className="star-item" size={18} color="yellow" />);
-        return stars;
-    };
+        let stars = []
+        for (let i = 1; i <= +star; i++) stars.push(<GrStar className='star-item' size={18} color='yellow' />)
+        return stars
 
     return (
         <div className="w-full flex border-t-[2px] border-orange-600 py-4 ">

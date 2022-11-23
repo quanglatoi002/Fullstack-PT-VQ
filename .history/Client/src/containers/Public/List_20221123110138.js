@@ -55,15 +55,15 @@ import { getPosts, getPostsLimit } from '~/store/actions/post';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
-const List = ({ page, categoryCode }) => {
+const List = ({ categoryCode }) => {
     const dispatch = useDispatch();
     const [searchParams] = useSearchParams();
     const { posts } = useSelector((state) => state.post);
 
     useEffect(() => {
-        let offset = page ? +page - 1 : 0;
-        dispatch(getPostsLimit(offset));
-    }, [page]);
+        let offset = page ? +page - 1 : 0
+        dispatch(getPostsLimit(offset))
+    }, [page])
     // useEffect(() => {
     //     let params = [];
     //     for (let entry of searchParams.entries()) {
@@ -78,8 +78,8 @@ const List = ({ page, categoryCode }) => {
     //         }
     //     });
     //     if (categoryCode) searchParamsObject.categoryCode = categoryCode;
-    //     dispatch(getPostsLimit(searchParamsObject));
-    // }, [searchParams, categoryCode]);
+        dispatch(getPostsLimit(searchParamsObject));
+    }, [searchParams, categoryCode]);
     return (
         <div className="w-full p-2 bg-white shadow-sm rounded-md px-6">
             <div className="flex items-center justify-between my-3">

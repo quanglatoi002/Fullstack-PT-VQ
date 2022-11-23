@@ -49,7 +49,7 @@
 
 // export default List;
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Button, Item } from '~/components';
 import { getPosts, getPostsLimit } from '~/store/actions/post';
 import { useDispatch, useSelector } from 'react-redux';
@@ -59,6 +59,7 @@ const List = ({ page, categoryCode }) => {
     const dispatch = useDispatch();
     const [searchParams] = useSearchParams();
     const { posts } = useSelector((state) => state.post);
+    const listRef = useRef();
 
     useEffect(() => {
         let offset = page ? +page - 1 : 0;
@@ -81,7 +82,7 @@ const List = ({ page, categoryCode }) => {
     //     dispatch(getPostsLimit(searchParamsObject));
     // }, [searchParams, categoryCode]);
     return (
-        <div className="w-full p-2 bg-white shadow-sm rounded-md px-6">
+        <div ref={listRef} className="w-full p-2 bg-white shadow-sm rounded-md px-6">
             <div className="flex items-center justify-between my-3">
                 <h4 className="text-xl font-semibold">Danh sách tin đăng</h4>
                 <span>Cập nhật: 8:05 20/11/2022</span>

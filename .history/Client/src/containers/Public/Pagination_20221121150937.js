@@ -19,7 +19,6 @@ const Pagination = () => {
         page && +page !== currentPage && setCurrentPage(+page);
         !page && setCurrentPage(1);
     }, [searchParams]);
-
     useEffect(() => {
         let maxPage = Math.ceil(count / process.env.REACT_APP_LIMIT_POSTS);
         let end = currentPage + 2 > maxPage ? maxPage : currentPage + 2;
@@ -44,9 +43,11 @@ const Pagination = () => {
             {!isHideEnd && <PageNumber text={'...'} />}
             {!isHideEnd && (
                 <PageNumber
-                    icon={<GrLinkNext />}
-                    setCurrentPage={setCurrentPage}
-                    text={Math.floor(count / posts.length)}
+                key={item}
+                text={item}
+                setCurrentPage={setCurrentPage}
+                currentPage={currentPage}
+            />
                 />
             )}
         </div>

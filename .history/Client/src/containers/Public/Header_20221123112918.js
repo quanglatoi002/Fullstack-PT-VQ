@@ -20,7 +20,7 @@ const Header = () => {
     }, []);
 
     useEffect(() => {
-        headerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        headerRef.current.scrollIntoView({ beha });
     }, [searchParams.get('page')]);
 
     return (

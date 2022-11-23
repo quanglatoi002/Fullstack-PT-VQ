@@ -19,9 +19,8 @@ const Pagination = () => {
         page && +page !== currentPage && setCurrentPage(+page);
         !page && setCurrentPage(1);
     }, [searchParams]);
-
     useEffect(() => {
-        let maxPage = Math.ceil(count / process.env.REACT_APP_LIMIT_POSTS);
+        let maxPage = Math.ceil(count / process.env);
         let end = currentPage + 2 > maxPage ? maxPage : currentPage + 2;
         let start = currentPage - 2 <= 1 ? 1 : currentPage - 2;
         let temp = [];

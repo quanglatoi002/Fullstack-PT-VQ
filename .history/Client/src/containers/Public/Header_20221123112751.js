@@ -19,9 +19,7 @@ const Header = () => {
         navigate(path.LOGIN, { state: { flag } });
     }, []);
 
-    useEffect(() => {
-        headerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, [searchParams.get('page')]);
+    useEffect(() => {}, [searchParams.get('page')]);
 
     return (
         <div ref={headerRef} className="max-w-1100 w-full flex justify-between items-center">

@@ -1,14 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import {
-    Home,
-    Login,
-    RentalApartment,
-    RentalHouse,
-    RentalRoom,
-    RentalSpace,
-    Homepage,
-    DetailPost,
-} from '~/containers/Public';
+import { Home, Login, RentalApartment, RentalHouse, RentalRoom, RentalSpace, Homepage } from '~/containers/Public';
 import { path } from '~/utils/constant';
 function App() {
     return (
@@ -22,7 +13,7 @@ function App() {
                     <Route path={path.CHO_THUE_MAT_BANG} element={<RentalSpace />} />
                     <Route path={path.NHA_CHO_THUE} element={<RentalHouse />} />
                     <Route path={path.CHO_THUE_PHONG_TRO} element={<RentalRoom />} />
-                    <Route path={path.DETAL_POST__TITLE__POSTID} element={<DetailPost />} />
+                    <Route path={path.DETAL_POST__TITLE__POSTID} element={<RentalRoom />} />
                 </Route>
             </Routes>
         </div>

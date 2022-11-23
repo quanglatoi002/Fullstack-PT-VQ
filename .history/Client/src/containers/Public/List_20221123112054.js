@@ -49,7 +49,7 @@
 
 // export default List;
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Button, Item } from '~/components';
 import { getPosts, getPostsLimit } from '~/store/actions/post';
 import { useDispatch, useSelector } from 'react-redux';
@@ -59,6 +59,7 @@ const List = ({ page, categoryCode }) => {
     const dispatch = useDispatch();
     const [searchParams] = useSearchParams();
     const { posts } = useSelector((state) => state.post);
+    const listRef = useRef();
 
     useEffect(() => {
         let offset = page ? +page - 1 : 0;
