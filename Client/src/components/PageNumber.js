@@ -50,5 +50,4 @@ const PageNumber = ({ text, currentPage, icon, setCurrentPage, type }) => {
         </div>
     );
 };
-
 export default memo(PageNumber);
