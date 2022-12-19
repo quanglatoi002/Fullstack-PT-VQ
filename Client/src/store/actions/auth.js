@@ -5,18 +5,15 @@ import actionTypes from './actionTypes';
 //DISPATCH IS A FUNCTION AND GET PARAMETER IS ACTION VD: dispatch(actions)
 export const register = (payload) => async (dispatch) => {
     try {
+        // get result from authReducer
         const response = await apiRegister(payload);
         console.log(response);
+        // if take data result will up authReducer
         if (response?.data.err === 0) {
+            // side page auth/actions will get "data:payload" now this data get all data return side server
             dispatch({
                 type: actionTypes.REGISTER_SUCCESS,
-                // return {
-                //     ...state,
-                //     isLoggedIn: true,
-                //     token: action.data,
-                //     msg: '',
-                // };
-                data: response.data.token,
+                data: response.data.token, //token take data side server through auth/services, then pass get data by "data:payload" --> response.data --> response.data.token(focus auth/services(server))
             });
         } else {
             dispatch({

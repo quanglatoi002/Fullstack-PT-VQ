@@ -15,12 +15,16 @@ const commonConfig = {
 const authConfig = {
     ...commonConfig,
     key: 'auth',
+    // whitelist -->which reducer want save in persistence storage
+    //blacklist --> which reducer not want save in persistence storage
     whitelist: ['isLoggedIn', 'token'], //display whitelist
 };
 
 // combine the reducer together
 const rootReducer = combineReducers({
     //Redux persist allowing to save the redux store in the localStorage of you browser
+
+    //When we config for primary 'auth' and only auth change then we can use persistReducer
     auth: persistReducer(authConfig, authReducer),
     user: userReducer,
     post: postReducer,

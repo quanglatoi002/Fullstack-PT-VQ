@@ -40,17 +40,14 @@ const Item = ({ images, user, title, star, description, attributes, address, id 
             </div>
             <div className="w-3/5">
                 <div className="flex justify-between gap-4 leading-[21px]">
-                    <div className="text-red-600 font-medium">
-                        <GrStar
-                            className="
-                        star-item"
-                            size={18}
-                            color="#febb02"
-                        />
-                        <GrStar className="star-item" size={18} color="#febb02" />
-                        <GrStar className="star-item" size={18} color="#febb02" />
-                        <GrStar className="star-item" size={18} color="#febb02" />
-                        <GrStar className="star-item" size={18} color="#febb02" />
+                    <div
+                        className="text-red-600 
+                    font-medium"
+                    >
+                        {handleStar(+star).length > 0 &&
+                            handleStar(+star).map((star, number) => {
+                                return <span key={number}>{star}</span>;
+                            })}
                         {title}
                     </div>
                     <div className="w-[10%] flex justify-end">

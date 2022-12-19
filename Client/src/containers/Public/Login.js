@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2'; //notify on screen
 
 const Login = () => {
-    const location = useLocation();
+    const location = useLocation(); //take path on vd:
+    // http://localhost:3000/
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { isLoggedIn, msg, update } = useSelector((state) => state.auth);
