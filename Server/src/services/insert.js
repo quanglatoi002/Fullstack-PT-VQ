@@ -9,6 +9,7 @@ import chothuephongtro from "../../data/chothuephongtro.json";
 import nhachothue from "../../data/nhachothue.json";
 import generateCode from "../utils/generateCode";
 const dataBody = nhachothue.body;
+// const prices =
 //bcrypt is encode with 12 characters
 const hashPassword = (password) =>
     bcrypt.hashSync(password, bcrypt.genSaltSync(12));
