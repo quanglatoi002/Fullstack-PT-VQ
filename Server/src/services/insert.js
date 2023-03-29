@@ -8,6 +8,9 @@ import chothuematbang from "../../data/chothuematbang.json";
 import chothuephongtro from "../../data/chothuephongtro.json";
 import nhachothue from "../../data/nhachothue.json";
 import generateCode from "../utils/generateCode";
+import { getNumberFromString } from "../utils/common";
+import { dataPrice, dataArea } from "../utils/data";
+
 const dataBody = nhachothue.body;
 // const prices =
 //bcrypt is encode with 12 characters
@@ -32,6 +35,12 @@ export const insertService = () =>
                 let userId = v4();
                 let imagesId = v4();
                 let overviewId = v4();
+                let currentArea = getNumberFromString(
+                    item?.header?.attributes?.acreage
+                );
+                let currentPrice = getNumberFromString(
+                    item?.header?.attributes?.price
+                );
                 await db.Post.create({
                     id: postId,
                     title: item?.header?.title,
@@ -44,6 +53,15 @@ export const insertService = () =>
                     userId,
                     overviewId,
                     imagesId,
+                    areaCode: dataArea.find(
+                        (area) =>
+                            area.max >= currentArea && area.min <= currentArea
+                    )?.code,
+                    priceCode: dataPrice.find(
+                        (price) =>
+                            price.max >= currentPrice &&
+                            price.min <= currentPrice
+                    )?.code,
                 });
                 await db.Attribute.create({
                     id: attributesId,
