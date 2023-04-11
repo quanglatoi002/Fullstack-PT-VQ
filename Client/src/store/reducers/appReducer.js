@@ -4,6 +4,7 @@ const initState = {
     msg: '',
     categories: [],
     prices: [],
+    areas: [],
 };
 const appReducer = (state = initState, action) => {
     switch (action.type) {
@@ -17,6 +18,12 @@ const appReducer = (state = initState, action) => {
             return {
                 ...state,
                 prices: action.prices || [],
+                msg: action.msg || '',
+            };
+        case actionTypes.GET_AREAS:
+            return {
+                ...state,
+                areas: action.areas || [],
                 msg: action.msg || '',
             };
         default:

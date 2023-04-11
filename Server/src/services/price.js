@@ -6,7 +6,7 @@ export const getPricesService = () =>
         try {
             const response = await db.Price.findAll({
                 raw: true,
-                attributes: ["code", "value"],
+                attributes: ["code", "value", "order"],
             });
             resolve({
                 err: response ? 0 : 1,

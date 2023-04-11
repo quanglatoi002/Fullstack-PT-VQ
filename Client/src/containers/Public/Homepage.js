@@ -10,10 +10,11 @@ const Homepage = () => {
     const dispatch = useDispatch();
 
     const [params] = useSearchParams();
-    const { categories, prices } = useSelector((state) => state.app);
+    const { categories, prices, areas } = useSelector((state) => state.app);
 
     useEffect(() => {
         dispatch(actions.getPrices());
+        dispatch(actions.getAreas());
     }, [dispatch]);
     console.log(prices);
 
@@ -31,8 +32,8 @@ const Homepage = () => {
                 </div>
                 <div className="w-[30%] flex flex-col gap-4 items-center border border-green-500">
                     <ItemSidebar content={categories} title="Danh sách cho thuê" />
-                    <ItemSidebar content={prices} title="Xem theo giá" />
-                    <ItemSidebar title="Xem theo diện tích" />
+                    <ItemSidebar isDouble content={prices} title="Xem theo giá" />
+                    <ItemSidebar isDouble content={areas} title="Xem theo diện tích" />
                 </div>
             </div>
         </div>

@@ -124,18 +124,18 @@ export const insertService = () =>
 export const createPricesAndAreas = () =>
     new Promise((resolve, reject) => {
         try {
-            dataPrice.forEach(async (item) => {
+            dataPrice.forEach(async (item, index) => {
                 await db.Price.create({
-                    id: v4(),
                     code: item.code,
                     value: item.value,
+                    order: index + 1,
                 });
             });
-            dataArea.forEach(async (item) => {
+            dataArea.forEach(async (item, index) => {
                 await db.Area.create({
-                    id: v4(),
                     code: item.code,
                     value: item.value,
+                    order: index + 1,
                 });
             });
             resolve("Done");
