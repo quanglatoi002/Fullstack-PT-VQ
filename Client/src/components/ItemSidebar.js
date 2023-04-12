@@ -1,5 +1,8 @@
 import { memo } from 'react';
+//
 import icons from '../utils/icons';
+import { formatVietnameseToString } from '~/utils/Common/formatVietnameseToString';
+import { Link } from 'react-router-dom';
 
 const { GrNext } = icons;
 
@@ -23,13 +26,14 @@ const ItemSidebar = ({ title, content, isDouble }) => {
                 <div className="flex flex-col gap-2">
                     {content?.length > 0 &&
                         content.map((item) => (
-                            <div
+                            <Link
+                                to={`${formatVietnameseToString(item?.value)}`}
                                 key={item?.code}
                                 className="flex gap-2 items-center cursor-pointer hover:text-orange-600 border-b border-gray-200 border-dashed pb-1"
                             >
                                 <GrNext size={10} />
                                 <p>{item.value}</p>
-                            </div>
+                            </Link>
                         ))}
                 </div>
             )}

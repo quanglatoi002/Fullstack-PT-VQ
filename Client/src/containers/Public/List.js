@@ -11,8 +11,8 @@ const List = ({ page, categoryCode }) => {
 
     useEffect(() => {
         let offset = page ? +page - 1 : 0;
-        dispatch(getPostsLimit(offset));
-    }, [page]);
+        dispatch(getPostsLimit({ offset, priceCode: 'OPTN' }));
+    }, [page, dispatch]);
     // useEffect(() => {
     //     let params = [];
     //     for (let entry of searchParams.entries()) {
