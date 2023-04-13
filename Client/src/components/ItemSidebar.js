@@ -1,12 +1,24 @@
 import { memo } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+
 //
 import icons from '../utils/icons';
 import { formatVietnameseToString } from '~/utils/Common/formatVietnameseToString';
-import { Link } from 'react-router-dom';
+import * as actions from '../store/actions';
 
 const { GrNext } = icons;
 
-const ItemSidebar = ({ title, content, isDouble }) => {
+const ItemSidebar = ({ title, content, isDouble, type }) => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    // const [paramsSeach] = useSearchParams();
+    // let entries = paramsSeach.entries();
+
+    const dispatch = useDispatch();
+
     const formatContent = () => {
         const oddEl = content?.filter((item, index) => index % 2 !== 0);
         const evenEl = content?.filter((item, index) => index % 2 === 0);
@@ -17,6 +29,15 @@ const ItemSidebar = ({ title, content, isDouble }) => {
             };
         });
         return formatContent;
+    };
+
+    const handleFilterPosts = (code) => {
+        dispatch(actions.getPostsLimit({ [type]: code }));
+
+        navigate({
+            pathname: location?.pathname,
+            search: createSearchParams({ type: code }).toString(),
+        });
     };
 
     return (
@@ -43,11 +64,17 @@ const ItemSidebar = ({ title, content, isDouble }) => {
                         formatContent(content).map((item, index) => (
                             <div key={index}>
                                 <div className="flex items-center justify-around">
-                                    <div className="flex flex-1 gap-2 items-center cursor-pointer hover:text-orange-600 border-b border-gray-200 border-dashed pb-1">
+                                    <div
+                                        onClick={() => handleFilterPosts(item.left.code)}
+                                        className="flex flex-1 gap-2 items-center cursor-pointer hover:text-orange-600 border-b border-gray-200 border-dashed pb-1"
+                                    >
                                         <GrNext size={10} color="#ccc" />
                                         <p>{item.left.value}</p>
                                     </div>
-                                    <div className="flex flex-1 gap-2 items-center cursor-pointer hover:text-orange-600 border-b border-gray-200 border-dashed pb-1">
+                                    <div
+                                        onClick={() => handleFilterPosts(item.right.code)}
+                                        className="flex flex-1 gap-2 items-center cursor-pointer hover:text-orange-600 border-b border-gray-200 border-dashed pb-1"
+                                    >
                                         <GrNext size={10} color="#ccc" />
                                         <p>{item.right.value}</p>
                                     </div>

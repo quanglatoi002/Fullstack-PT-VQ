@@ -32,7 +32,7 @@ const Homepage = () => {
                 </div>
                 <div className="w-[30%] flex flex-col gap-4 items-center border border-green-500">
                     <ItemSidebar content={categories} title="Danh sách cho thuê" />
-                    <ItemSidebar isDouble content={prices} title="Xem theo giá" />
+                    <ItemSidebar isDouble type="priceCode" content={prices} title="Xem theo giá" />
                     <ItemSidebar isDouble content={areas} title="Xem theo diện tích" />
                 </div>
             </div>
