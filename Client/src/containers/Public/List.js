@@ -11,25 +11,22 @@ const List = () => {
     const { posts } = useSelector((state) => state.post);
 
     useEffect(() => {
-        let page = searchParams.get('page');
-        // console.log(page);
-        console.log(searchParams);
-        let offset = page ? +page - 1 : 0;
-        dispatch(getPostsLimit({ offset }));
+        let params = [];
+        for (let entry of searchParams.entries()) {
+            params.push(entry);
+        }
+
+        let searchParamsObject = {};
+        params?.forEach((i) => {
+            if (Object.keys(searchParamsObject)?.some((item) => item === i[0])) {
+                searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]];
+            } else {
+                searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] };
+            }
+        });
+        dispatch(getPostsLimit({ searchParamsObject }));
     }, [dispatch, searchParams]);
-    // useEffect(() => {
-    //     let params = [];
-    //     for (let entry of searchParams.entries()) {
-    //         params.push(entry);
-    //     }
-    //     let searchParamsObject = {};
-    //     params?.forEach((i) => {
-    //         if (Object.keys(searchParamsObject)?.some((item) => item === i[0])) {
-    //             searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]];
-    //         } else {
-    //             searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] };
-    //         }
-    //     });
+
     //     if (categoryCode) searchParamsObject.categoryCode = categoryCode;
     //     dispatch(getPostsLimit(searchParamsObject));
     // }, [searchParams, categoryCode]);

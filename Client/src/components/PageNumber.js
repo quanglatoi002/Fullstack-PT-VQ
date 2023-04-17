@@ -12,11 +12,14 @@ const PageNumber = ({ text, currentPage, icon, setCurrentPage, type }) => {
     let entries = paramsSeach.entries();
 
     const append = (entries) => {
+        //ở đoạn params này chúng ta có [Arr1, Arr2] tương ứng với ví dụ 0:['price_Code', '1PTN'] 1:['page','2']
         let params = [];
         paramsSeach.append('page', +text);
         for (let entry of entries) {
             params.push(entry);
         }
+        console.log(params);
+        //Phải chuyển đoạn arr trên thành obj
         let searchParamsObject = {};
         params?.forEach((i) => {
             if (Object.keys(searchParamsObject)?.some((item) => item === i[0] && item !== 'page')) {

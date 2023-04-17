@@ -38,6 +38,7 @@ export const getPostsService = () =>
 export const getPostsLimitService = (page, query) =>
     new Promise(async (resolve, reject) => {
         try {
+            let offset = !page || +page <= 1 ? 0 : +page;
             const response = await db.Post.findAndCountAll({
                 where: query,
                 raw: true,

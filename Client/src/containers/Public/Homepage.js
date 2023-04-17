@@ -12,14 +12,9 @@ const Homepage = () => {
     const { categories, prices, areas } = useSelector((state) => state.app);
 
     useEffect(() => {
-        let param = [];
-        for (let entry of params.entries()) {
-            param.push(entry);
-        }
-        console.log(param);
         dispatch(actions.getPrices());
         dispatch(actions.getAreas());
-    }, [params]);
+    }, []);
     console.log(prices);
 
     return (
