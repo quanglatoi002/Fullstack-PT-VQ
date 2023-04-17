@@ -4,15 +4,19 @@ import { getPosts, getPostsLimit } from '~/store/actions/post';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
-const List = ({ page, categoryCode }) => {
+const List = () => {
     const dispatch = useDispatch();
     const [searchParams] = useSearchParams();
+    console.log(searchParams);
     const { posts } = useSelector((state) => state.post);
 
     useEffect(() => {
+        let page = searchParams.get('page');
+        // console.log(page);
+        console.log(searchParams);
         let offset = page ? +page - 1 : 0;
         dispatch(getPostsLimit({ offset }));
-    }, [page, dispatch]);
+    }, [dispatch, searchParams]);
     // useEffect(() => {
     //     let params = [];
     //     for (let entry of searchParams.entries()) {

@@ -8,14 +8,18 @@ import * as actions from '../../store/actions';
 
 const Homepage = () => {
     const dispatch = useDispatch();
-
     const [params] = useSearchParams();
     const { categories, prices, areas } = useSelector((state) => state.app);
 
     useEffect(() => {
+        let param = [];
+        for (let entry of params.entries()) {
+            param.push(entry);
+        }
+        console.log(param);
         dispatch(actions.getPrices());
         dispatch(actions.getAreas());
-    }, [dispatch]);
+    }, [params]);
     console.log(prices);
 
     return (
@@ -27,8 +31,8 @@ const Homepage = () => {
             <Province />
             <div className="w-full flex gap-4">
                 <div className="w-[70%]">
-                    <List page={params.get('page')} />
-                    <Pagination />
+                    <List />
+                    <Pagination page={params.get('page')} />
                 </div>
                 <div className="w-[30%] flex flex-col gap-4 items-center border border-green-500">
                     <ItemSidebar content={categories} title="Danh sách cho thuê" />
