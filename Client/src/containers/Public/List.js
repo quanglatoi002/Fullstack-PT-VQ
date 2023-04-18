@@ -17,14 +17,17 @@ const List = () => {
         }
 
         let searchParamsObject = {};
-        params?.forEach((i) => {
-            if (Object.keys(searchParamsObject)?.some((item) => item === i[0])) {
-                searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]];
-            } else {
-                searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] };
-            }
+        params?.map((i) => {
+            searchParamsObject = { ...searchParamsObject, [i[0]]: i[1] };
         });
-        dispatch(getPostsLimit({ searchParamsObject }));
+        // params?.forEach((i) => {
+        //     if (Object.keys(searchParamsObject)?.some((item) => item === i[0])) {
+        //         searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]];
+        //     } else {
+        //         searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] };
+        //     }
+        // });
+        dispatch(getPostsLimit(searchParamsObject));
     }, [dispatch, searchParams]);
 
     //     if (categoryCode) searchParamsObject.categoryCode = categoryCode;
