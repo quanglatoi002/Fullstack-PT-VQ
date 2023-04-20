@@ -20,23 +20,26 @@ const ItemSidebar = ({ title, content, isDouble, type }) => {
     const dispatch = useDispatch();
 
     const formatContent = () => {
+        // chia chỉ số index ra chẵn và lẻ oddEl là lẽ và ngược lại
         const oddEl = content?.filter((item, index) => index % 2 !== 0);
         const evenEl = content?.filter((item, index) => index % 2 === 0);
+        // cho oddEl và evenEl đứng song song nhau
         const formatContent = oddEl.map((item, index) => {
+            //[evenEl([0,1,2,3]), oddEl([0,1,2,3])]
             return {
-                left: item,
-                right: evenEl.find((item2, index2) => index2 === index),
+                right: item,
+                left: evenEl.find((item2, index2) => index2 === index),
             };
         });
         return formatContent;
     };
 
     const handleFilterPosts = (code) => {
-        dispatch(actions.getPostsLimit({ [type]: code }));
+        // dispatch(actions.getPostsLimit({ [type]: code }));
 
         navigate({
             pathname: location?.pathname,
-            search: createSearchParams({ priceCode: code }).toString(),
+            search: createSearchParams({ [type]: code }).toString(),
         });
     };
 

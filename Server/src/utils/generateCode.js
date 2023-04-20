@@ -2,6 +2,8 @@ require("dotenv").config();
 
 const generateCode = (value) => {
     let output = "";
+    //normalize dùng để chuẩn hóa chuỗi ký tự, ký tự gốc và ký tự gốc
+    //replace dùng để loại bỏ ký tự dấu trong chuỗi
     value = value
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")

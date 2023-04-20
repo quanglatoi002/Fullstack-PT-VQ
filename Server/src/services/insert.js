@@ -12,7 +12,7 @@ import { getNumberFromString } from "../utils/common";
 import { dataPrice, dataArea } from "../utils/data";
 
 console.log(dataPrice);
-const dataBody = chothuephongtro.body;
+const dataBody = chothuecanho.body;
 // const prices =
 //bcrypt is encode with 12 characters
 const hashPassword = (password) =>
@@ -54,13 +54,14 @@ export const insertService = () =>
                     userId,
                     overviewId,
                     imagesId,
+                    // vd max:3, min:1 => 3 > 2 && 1 <= 2
                     areaCode: dataArea.find(
                         (area) =>
-                            area.max >= currentArea && area.min <= currentArea
+                            area.max > currentArea && area.min <= currentArea
                     )?.code,
                     priceCode: dataPrice.find(
                         (price) =>
-                            price.max >= currentPrice &&
+                            price.max > currentPrice &&
                             price.min <= currentPrice
                     )?.code,
                 });

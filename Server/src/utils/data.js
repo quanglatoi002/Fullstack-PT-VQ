@@ -11,9 +11,19 @@ const prices = [
         value: "Từ 1 - 2 triệu",
     },
     {
+        min: 2,
+        max: 3,
+        value: "Từ 2 - 3 triệu",
+    },
+    {
         min: 3,
         max: 5,
         value: "Từ 3 - 5 triệu",
+    },
+    {
+        min: 5,
+        max: 7,
+        value: "Từ 5 - 7 triệu",
     },
     {
         min: 7,
