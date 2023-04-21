@@ -11,11 +11,13 @@ const List = () => {
     const { posts } = useSelector((state) => state.post);
 
     useEffect(() => {
+        //tạo ra 1 mảng rỗng
         let params = [];
+        // lặp qua các cặp key-value của tham số truy vấn
         for (let entry of searchParams.entries()) {
             params.push(entry);
         }
-
+        // sau đó dùng map để chuyển từ 1 mảng thành 1 obj
         let searchParamsObject = {};
         params?.map((i) => {
             searchParamsObject = { ...searchParamsObject, [i[0]]: i[1] };

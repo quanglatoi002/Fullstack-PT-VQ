@@ -1,6 +1,7 @@
 import Header from './Header';
 import { Outlet } from 'react-router-dom';
 import { Navigation, Search } from './index';
+import { Intro, Contact } from '../../components';
 
 const Home = () => {
     return (
@@ -11,6 +12,9 @@ const Home = () => {
             <div className="max-w-1100 w-full flex flex-col items-start justify-start mt-3">
                 <Outlet />
             </div>
+            <Intro />
+            <Contact />
+            <div className="h-[500px]"></div>
         </div>
     );
 };
