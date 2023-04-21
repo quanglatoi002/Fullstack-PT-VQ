@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "moment": "^2.29.4",
     "redux-persist-transform-encrypt": "^4.0.0"
   }
 }

@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
-import { text } from '~/utils/constant';
-import { Province, ItemSidebar } from '~/components';
-import { List, Pagination } from './index';
 import { useSearchParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+//
+import { text } from '~/utils/constant';
+import { Province, ItemSidebar, RelatedPost } from '~/components';
+import { List, Pagination } from './index';
 import * as actions from '../../store/actions';
 
 const Homepage = () => {
@@ -14,7 +15,7 @@ const Homepage = () => {
     useEffect(() => {
         dispatch(actions.getPrices());
         dispatch(actions.getAreas());
-    }, []);
+    }, [dispatch]);
     console.log(prices);
 
     return (
@@ -33,6 +34,7 @@ const Homepage = () => {
                     <ItemSidebar content={categories} title="Danh sách cho thuê" />
                     <ItemSidebar isDouble type="priceCode" content={prices} title="Xem theo giá" />
                     <ItemSidebar isDouble type="areaCode" content={areas} title="Xem theo diện tích" />
+                    <RelatedPost />
                 </div>
             </div>
         </div>
