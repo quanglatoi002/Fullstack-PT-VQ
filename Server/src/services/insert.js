@@ -12,7 +12,7 @@ import { getNumberFromString } from "../utils/common";
 import { dataPrice, dataArea } from "../utils/data";
 
 console.log(dataPrice);
-const dataBody = chothuecanho.body;
+const dataBody = chothuephongtro.body;
 // const prices =
 //bcrypt is encode with 12 characters
 const hashPassword = (password) =>
@@ -49,7 +49,7 @@ export const insertService = () =>
                     labelCode,
                     address: item?.header?.address,
                     attributesId,
-                    categoryCode: "NCT",
+                    categoryCode: "CTPT",
                     description: JSON.stringify(item?.mainContent?.content),
                     userId,
                     overviewId,
