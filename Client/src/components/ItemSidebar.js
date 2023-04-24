@@ -7,7 +7,6 @@ import { useLocation } from 'react-router-dom';
 //
 import icons from '../utils/icons';
 import { formatVietnameseToString } from '~/utils/Common/formatVietnameseToString';
-import * as actions from '../store/actions';
 
 const { GrNext } = icons;
 

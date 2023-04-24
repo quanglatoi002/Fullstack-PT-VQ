@@ -18,7 +18,6 @@ const PageNumber = ({ text, currentPage, icon, setCurrentPage, type }) => {
         for (let entry of entries) {
             params.push(entry);
         }
-        console.log(params);
         //Phải chuyển đoạn arr trên thành obj
         let searchParamsObject = {};
         // params?.map((i) => {
@@ -34,10 +33,10 @@ const PageNumber = ({ text, currentPage, icon, setCurrentPage, type }) => {
 
         return searchParamsObject;
     };
-
     const handleChangePage = () => {
         if (!(text === '...')) {
             setCurrentPage(+text);
+            //location.pathname sẽ lấy đường dẫn của trang hiện tại
             navigate({
                 pathname: location?.pathname,
                 search: createSearchParams(append(entries)).toString(),

@@ -1,12 +1,13 @@
-import { useSearchParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 //
 import { text } from '~/utils/constant';
 import { Province, ItemSidebar, RelatedPost } from '~/components';
 import { List, Pagination } from './index';
 
 const Homepage = () => {
+    const dispatch = useDispatch();
     const { categories, prices, areas } = useSelector((state) => state.app);
+
     return (
         <div className="w-full border border-red-500 flex flex-col gap-[15px] ">
             <div>

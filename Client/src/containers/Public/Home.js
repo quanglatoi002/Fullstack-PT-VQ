@@ -2,8 +2,17 @@ import Header from './Header';
 import { Outlet } from 'react-router-dom';
 import { Navigation, Search } from './index';
 import { Intro, Contact } from '../../components';
+import { useEffect } from 'react';
+import * as actions from '../../store/actions';
+import { useDispatch } from 'react-redux';
 
 const Home = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(actions.getPrices());
+        dispatch(actions.getAreas());
+    }, [dispatch]);
     return (
         <div className="w-full flex flex-col items-center border  bg-primary px-0.5">
             <Header />

@@ -13,8 +13,9 @@ const Rental = () => {
     const location = useLocation();
     // const dispatch = useDispatch();
     useEffect(() => {
+        //lấy categories từ redux được so sánh xem location.pathname hiện tại có tồn tại trong redux hay không?
         const category = categories?.find((item) => `/${formatVietnameseToString(item.value)}` === location.pathname);
-        console.log(category);
+
         setCategoryCurrent(category);
         if (category) {
             setCategoryCode(category.code);
