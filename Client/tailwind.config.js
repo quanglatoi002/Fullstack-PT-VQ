@@ -17,6 +17,10 @@ module.exports = {
                 secondary_content: '#febb02',
                 'bg-overlay-50': 'rgba(0,0,0,.5)',
             },
+            backgroundColor: {
+                'overlay-30': 'rgba(0,0,0,.3)',
+                'overlay-70': 'rgba(0,0,0,.7)',
+            },
             flex: {
                 3: '3 3 0%',
             },
