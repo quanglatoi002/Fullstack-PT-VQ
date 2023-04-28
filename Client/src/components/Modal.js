@@ -34,6 +34,18 @@ const Modal = ({ setIsShowModal, content, name }) => {
             setPresentOne(percent);
         } else setPresentTwo(percent);
     };
+    //vd ta present lúc này = 30 * 1.5 = 50 / 5 = 10 * 5 = 50 / 10 = 5
+    // 10% => 1.5
+    // 1.5*10 = 15 / 5 = 3 du 0 => 3 * 5 / 10 = 1.5
+    // 9 * 1.5 = 13.5 làm tròn lên 14 / 5 => 2 dư 4 lúc này chúng ta muốn loại bỏ kq số dư để nâng kq thêm 1 vậy lúc này kq ban đầu là 2 sẽ được nâng 3, 3 * 5 = 15 /10 => 1.5tr
+    const convert100toTarget = (percent) => {
+        return name === 'price'
+            ? (Math.ceil(Math.round(percent * 1.5) / 5) * 5) / 10
+            : name === 'area'
+            ? Math.ceil(Math.round(percent * 0.9) / 5) * 5
+            : 0;
+    };
+    console.log(convert100toTarget(11));
     return (
         <div
             onClick={() => {
@@ -63,8 +75,13 @@ const Modal = ({ setIsShowModal, content, name }) => {
                     </div>
                 )}
                 {(name === 'price' || name === 'area') && (
-                    <div className="p-12">
+                    <div className="p-12 py-20">
                         <div className="flex flex-col items-center justify-center relative">
+                            <div className="z-30 absolute top-[-48px] font-medium text-xl text-orange-600">
+                                {`Từ ${presentOne <= presentTwo ? presentOne : presentTwo} - ${
+                                    presentTwo > presentOne ? presentTwo : presentOne
+                                } triệu +`}
+                            </div>
                             <div
                                 onClick={handleClickStack}
                                 id="track"
@@ -80,7 +97,7 @@ const Modal = ({ setIsShowModal, content, name }) => {
                                 className="w-full appearance-none pointer-events-none absolute top-0 bottom-0"
                                 max="100"
                                 min="0"
-                                step="5"
+                                step="1"
                                 type="range"
                                 //trước tiên đặt giá trị để set cứng vị trí, ở lúc này không thể kéo được thang range cho đến khi sử dụng onChange để bắt lấy sự thay đổi giá trị ban đầu và set kết quả đó vào setPresentOne
                                 value={presentOne}
@@ -90,10 +107,29 @@ const Modal = ({ setIsShowModal, content, name }) => {
                                 className="w-full appearance-none pointer-events-none absolute top-0 bottom-0"
                                 max="100"
                                 min="0"
-                                step="5"
+                                step="1"
                                 type="range"
                                 value={presentTwo}
                             />
+                            <div className="absolute z-30 top-6 left-0 right-0 flex justify-between items-center">
+                                <span
+                                    className="cursor-pointer"
+                                    onClick={(e) => {
+                                        handleClickStack(e, 0);
+                                    }}
+                                >
+                                    0
+                                </span>
+                                <span
+                                    className="mr-[-12px] cursor-pointer"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleClickStack(e, 100);
+                                    }}
+                                >
+                                    {name === 'price' ? '15 triệu +' : name === 'area' ? 'Trên 90 m2' : ''}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 )}
