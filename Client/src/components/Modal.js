@@ -7,13 +7,33 @@ const Modal = ({ setIsShowModal, content, name }) => {
     const [presentTwo, setPresentTwo] = useState(100);
 
     useEffect(() => {
-        const activedTrackEl = document.getElementById('track-active');
-        activedTrackEl.style.left = `${presentOne}%`;
-    }, [presentOne]);
-    useEffect(() => {
-        const activedTrackEl = document.getElementById('track-active');
-        activedTrackEl.style.right = `${100 - presentTwo}%`;
-    }, [presentTwo]);
+        const activesTrackEl = document.getElementById('track-active');
+        //quy chế hoạt động của thanh kéo
+        // khi ta kéo presentTwo sang bên trái và kéo qua presentOne thì lúc này chúng ta cần phải đổi giá trị lại cho nhau, lúc này ở vị trí left sẽ là presentTwo và bên phải là presentOne và ngược lại thì chỉ cần cho kq ngược lại với nhau là được
+        if (activesTrackEl) {
+            if (presentTwo <= presentOne) {
+                activesTrackEl.style.left = `${presentTwo}%`;
+                activesTrackEl.style.right = `${100 - presentOne}%`;
+            } else {
+                activesTrackEl.style.left = `${presentOne}%`;
+                activesTrackEl.style.right = `${100 - presentTwo}%`;
+            }
+        }
+    }, [presentOne, presentTwo]);
+
+    //handle range change
+    const handleClickStack = (e) => {
+        const stackEl = document.getElementById('track');
+        // lấy toàn bộ vị trí đang đứng của event được xử lý
+        const stackRect = stackEl.getBoundingClientRect();
+        // vd ở đây e.clientX = (340 - 311)/167 lúc này chúng ta sẽ tìm ra được %
+        let percent = Math.round(((e.clientX - stackRect.left) * 100) / stackRect.width);
+        console.log(percent, 1);
+        // lấy giá trị tuyệt đối của cả 2 present nếu present nào có giá trị nhỏ hơn giá trị còn lại thì lúc nhấn chuột thì present ở bên nhỏ hơn sẽ phải di chuyển
+        if (Math.abs(percent - presentOne) <= Math.abs(percent - presentTwo)) {
+            setPresentOne(percent);
+        } else setPresentTwo(percent);
+    };
     return (
         <div
             onClick={() => {
@@ -45,8 +65,13 @@ const Modal = ({ setIsShowModal, content, name }) => {
                 {(name === 'price' || name === 'area') && (
                     <div className="p-12">
                         <div className="flex flex-col items-center justify-center relative">
-                            <div className="slider-track h-[5px] bg-gray-300 w-full absolute top-0 left-0 rounded-full"></div>
                             <div
+                                onClick={handleClickStack}
+                                id="track"
+                                className="slider-track h-[5px] bg-gray-300 w-full absolute top-0 left-0 rounded-full"
+                            ></div>
+                            <div
+                                onClick={handleClickStack}
                                 id="track-active"
                                 className="slider-track-active h-[5px] bg-orange-600 absolute top-0 left-0 rounded-full"
                             ></div>
