@@ -1,10 +1,23 @@
-import { useState, useEffect } from 'react';
+import { memo, useState, useEffect } from 'react';
 import icons from '../utils/icons';
 
 const { GrLinkPrevious } = icons;
-const Modal = ({ setIsShowModal, content, name }) => {
-    const [presentOne, setPresentOne] = useState(0);
-    const [presentTwo, setPresentTwo] = useState(100);
+const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax, defaultText }) => {
+    const [presentOne, setPresentOne] = useState(
+        name === 'price' && arrMinMax?.priceArr
+            ? arrMinMax?.priceArr[0]
+            : name === 'area' && arrMinMax?.areaArr
+            ? arrMinMax?.areaArr[0]
+            : 0,
+    );
+    const [presentTwo, setPresentTwo] = useState(
+        name === 'price' && arrMinMax?.priceArr
+            ? arrMinMax?.priceArr[1]
+            : name === 'area' && arrMinMax?.areaArr
+            ? arrMinMax?.areaArr[1]
+            : 100,
+    );
+    const [activedEl, setActivedEl] = useState('');
 
     useEffect(() => {
         const activesTrackEl = document.getElementById('track-active');
@@ -22,13 +35,12 @@ const Modal = ({ setIsShowModal, content, name }) => {
     }, [presentOne, presentTwo]);
 
     //handle range change
-    const handleClickStack = (e) => {
+    const handleClickStack = (e, value) => {
         const stackEl = document.getElementById('track');
         // lấy toàn bộ vị trí đang đứng của event được xử lý
         const stackRect = stackEl.getBoundingClientRect();
         // vd ở đây e.clientX = (340 - 311)/167 lúc này chúng ta sẽ tìm ra được %
-        let percent = Math.round(((e.clientX - stackRect.left) * 100) / stackRect.width);
-        console.log(percent, 1);
+        let percent = value ? value : Math.round(((e.clientX - stackRect.left) * 100) / stackRect.width, 0);
         // lấy giá trị tuyệt đối của cả 2 present nếu present nào có giá trị nhỏ hơn giá trị còn lại thì lúc nhấn chuột thì present ở bên nhỏ hơn sẽ phải di chuyển
         if (Math.abs(percent - presentOne) <= Math.abs(percent - presentTwo)) {
             setPresentOne(percent);
@@ -45,7 +57,14 @@ const Modal = ({ setIsShowModal, content, name }) => {
             ? Math.ceil(Math.round(percent * 0.9) / 5) * 5
             : 0;
     };
-    console.log(convert100toTarget(11));
+    const getNumbersPrice = (string) =>
+        string
+            .split(' ')
+            .map((item) => +item)
+            .filter((item) => !item === false);
+
+    console.log(getNumbersPrice('Trên 15 triệu'));
+    const handleActive = (code, value) => {};
     return (
         <div
             onClick={() => {
@@ -53,7 +72,7 @@ const Modal = ({ setIsShowModal, content, name }) => {
             }}
             className="fixed top-0 left-0 right-0 bottom-0 bg-overlay-70 z-20 flex justify-center items-center"
         >
-            <div onClick={(e) => e.stopPropagation()} className="w-1/3 bg-white rounded-md">
+            <div onClick={(e) => e.stopPropagation()} className="lg:w-1/3 w-1/2 bg-white rounded-md">
                 <div className="h-[45px] px-4 flex items-center border-b border-gray-200">
                     <span
                         className="cursor-pointer"
@@ -78,8 +97,14 @@ const Modal = ({ setIsShowModal, content, name }) => {
                     <div className="p-12 py-20">
                         <div className="flex flex-col items-center justify-center relative">
                             <div className="z-30 absolute top-[-48px] font-medium text-xl text-orange-600">
-                                {`Từ ${presentOne <= presentTwo ? presentOne : presentTwo} - ${
-                                    presentTwo > presentOne ? presentTwo : presentOne
+                                {`Từ ${
+                                    presentOne <= presentTwo
+                                        ? convert100toTarget(presentOne)
+                                        : convert100toTarget(presentTwo)
+                                } - ${
+                                    presentTwo >= presentOne
+                                        ? convert100toTarget(presentTwo)
+                                        : convert100toTarget(presentOne)
                                 } triệu +`}
                             </div>
                             <div
@@ -93,7 +118,7 @@ const Modal = ({ setIsShowModal, content, name }) => {
                                 className="slider-track-active h-[5px] bg-orange-600 absolute top-0 left-0 rounded-full"
                             ></div>
                             <input
-                                onChange={(e) => setPresentOne(e.target.value)}
+                                onChange={(e) => setPresentOne(+e.target.value)}
                                 className="w-full appearance-none pointer-events-none absolute top-0 bottom-0"
                                 max="100"
                                 min="0"
@@ -103,7 +128,7 @@ const Modal = ({ setIsShowModal, content, name }) => {
                                 value={presentOne}
                             />
                             <input
-                                onChange={(e) => setPresentTwo(e.target.value)}
+                                onChange={(e) => setPresentTwo(+e.target.value)}
                                 className="w-full appearance-none pointer-events-none absolute top-0 bottom-0"
                                 max="100"
                                 min="0"
@@ -115,6 +140,7 @@ const Modal = ({ setIsShowModal, content, name }) => {
                                 <span
                                     className="cursor-pointer"
                                     onClick={(e) => {
+                                        e.stopPropagation();
                                         handleClickStack(e, 0);
                                     }}
                                 >
@@ -124,11 +150,30 @@ const Modal = ({ setIsShowModal, content, name }) => {
                                     className="mr-[-12px] cursor-pointer"
                                     onClick={(e) => {
                                         e.stopPropagation();
+
                                         handleClickStack(e, 100);
                                     }}
                                 >
                                     {name === 'price' ? '15 triệu +' : name === 'area' ? 'Trên 90 m2' : ''}
                                 </span>
+                            </div>
+                        </div>
+                        <div className="lg:mt-24 mt-16">
+                            <h4 className="font-medium mb-4">Chọn nhanh:</h4>
+                            <div className="flex gap-2 items-center flex-wrap w-full">
+                                {content?.map((item) => {
+                                    return (
+                                        <button
+                                            key={item.code}
+                                            onClick={() => handleActive(item.code, item.value)}
+                                            className={`px-4 py-2 bg-gray-200 rounded-md cursor-pointer ${
+                                                item.code === activedEl ? 'bg-blue-500 text-white' : ''
+                                            }`}
+                                        >
+                                            {item.value}
+                                        </button>
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>
@@ -138,4 +183,4 @@ const Modal = ({ setIsShowModal, content, name }) => {
     );
 };
 
-export default Modal;
+export default memo(Modal);
