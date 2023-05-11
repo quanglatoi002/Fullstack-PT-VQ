@@ -1,9 +1,12 @@
 import { memo, useState, useEffect } from 'react';
 import icons from '../utils/icons';
-
+import { getNumbersPrice, getNumbersArea } from '../utils/Common/getNumbers';
 const { GrLinkPrevious } = icons;
 const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax, defaultText }) => {
+    const [activeEl, setActiveEl] = useState('');
+
     const [presentOne, setPresentOne] = useState(
+        // tìm giá trị min max trong price
         name === 'price' && arrMinMax?.priceArr
             ? arrMinMax?.priceArr[0]
             : name === 'area' && arrMinMax?.areaArr
@@ -17,7 +20,6 @@ const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax
             ? arrMinMax?.areaArr[1]
             : 100,
     );
-    const [activedEl, setActivedEl] = useState('');
 
     useEffect(() => {
         const activesTrackEl = document.getElementById('track-active');
@@ -57,14 +59,56 @@ const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax
             ? Math.ceil(Math.round(percent * 0.9) / 5) * 5
             : 0;
     };
-    const getNumbersPrice = (string) =>
-        string
-            .split(' ')
-            .map((item) => +item)
-            .filter((item) => !item === false);
-
-    console.log(getNumbersPrice('Trên 15 triệu'));
-    const handleActive = (code, value) => {};
+    //convert Target to 100 vd 2 / 15
+    const convertResultTo100 = (percent) => {
+        let target = name === 'price' ? 15 : name === 'area' ? 90 : 1;
+        return Math.floor((percent / target) * 100);
+    };
+    //handle
+    const handleActive = (code, value) => {
+        setActiveEl(code, value);
+        // hiện tại có price và area lên cần phải ktra xem name hiện tại
+        let arrMaxMin = name === 'price' ? getNumbersPrice(value) : getNumbersArea(value);
+        // Có 2 trường hợp đặc biệt sẽ trả về 1 số(1 và 15 ở bên price và area(20 và 90)
+        if (arrMaxMin.length === 1) {
+            if (arrMaxMin[0] === 1) {
+                setPresentOne(0);
+                setPresentTwo(convertResultTo100(1));
+            }
+            if (arrMaxMin[0] === 20) {
+                setPresentOne(0);
+                setPresentTwo(convertResultTo100(20));
+            }
+            if (arrMaxMin[0] === 15 || arrMaxMin[0] === 90) {
+                setPresentOne(100);
+                setPresentTwo(100);
+            }
+        }
+        if (arrMaxMin.length === 2) {
+            setPresentOne(convertResultTo100(arrMaxMin[0]));
+            setPresentTwo(convertResultTo100(arrMaxMin[1]));
+        }
+    };
+    const handleBeforeSubmit = (e) => {
+        let min = presentOne <= presentTwo ? presentOne : presentTwo;
+        let max = presentOne <= presentTwo ? presentTwo : presentOne;
+        let arrMinMax = [convert100toTarget(min), convert100toTarget(max)];
+        // const gaps = name === 'price'
+        //     ? getCodes(arrMinMax, content)
+        //     : name === 'area' ? getCodesArea(arrMinMax, content) : []
+        handleSubmit(
+            e,
+            {
+                [`${name}Number`]: arrMinMax,
+                [name]: `Từ ${convert100toTarget(min)} - ${convert100toTarget(max)} ${
+                    name === 'price' ? 'triệu' : 'm2'
+                }`,
+            },
+            {
+                [`${name}Arr`]: [min, max],
+            },
+        );
+    };
     return (
         <div
             onClick={() => {
@@ -72,7 +116,7 @@ const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax
             }}
             className="fixed top-0 left-0 right-0 bottom-0 bg-overlay-70 z-20 flex justify-center items-center"
         >
-            <div onClick={(e) => e.stopPropagation()} className="lg:w-1/3 w-1/2 bg-white rounded-md">
+            <div onClick={(e) => e.stopPropagation()} className="lg:w-2/5 w-1/2 bg-white relative rounded-md">
                 <div className="h-[45px] px-4 flex items-center border-b border-gray-200">
                     <span
                         className="cursor-pointer"
@@ -118,7 +162,10 @@ const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax
                                 className="slider-track-active h-[5px] bg-orange-600 absolute top-0 left-0 rounded-full"
                             ></div>
                             <input
-                                onChange={(e) => setPresentOne(+e.target.value)}
+                                onChange={(e) => {
+                                    setPresentOne(+e.target.value);
+                                    activeEl && setActiveEl('');
+                                }}
                                 className="w-full appearance-none pointer-events-none absolute top-0 bottom-0"
                                 max="100"
                                 min="0"
@@ -128,7 +175,10 @@ const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax
                                 value={presentOne}
                             />
                             <input
-                                onChange={(e) => setPresentTwo(+e.target.value)}
+                                onChange={(e) => {
+                                    setPresentOne(+e.target.value);
+                                    activeEl && setActiveEl('');
+                                }}
                                 className="w-full appearance-none pointer-events-none absolute top-0 bottom-0"
                                 max="100"
                                 min="0"
@@ -167,7 +217,7 @@ const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax
                                             key={item.code}
                                             onClick={() => handleActive(item.code, item.value)}
                                             className={`px-4 py-2 bg-gray-200 rounded-md cursor-pointer ${
-                                                item.code === activedEl ? 'bg-blue-500 text-white' : ''
+                                                item.code === activeEl ? 'bg-blue-500 text-white' : ''
                                             }`}
                                         >
                                             {item.value}
@@ -177,6 +227,15 @@ const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax
                             </div>
                         </div>
                     </div>
+                )}
+                {(name === 'price' || name === 'area') && (
+                    <button
+                        type="button"
+                        className="w-full absolute bottom-0 bg-[#FFA500] py-2 font-medium rounded-bl-md rounded-br-md"
+                        onClick={handleBeforeSubmit}
+                    >
+                        ÁP DỤNG
+                    </button>
                 )}
             </div>
         </div>
