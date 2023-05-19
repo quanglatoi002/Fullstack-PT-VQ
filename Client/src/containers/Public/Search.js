@@ -39,8 +39,10 @@ const Search = () => {
             setIsShowModal(false);
             arrMaxMin && setArrMinMax((prev) => ({ ...prev, ...arrMaxMin }));
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [isShowModal, queries],
     );
+    console.log(queries);
     const handleSearch = () => {
         const queryCodes = Object.entries(queries)
             .filter((item) => item[0].includes('Number') || item[0].includes('Code'))
@@ -72,33 +74,46 @@ const Search = () => {
     return (
         <>
             <div className="max-w-1100 w-full mt-3 lg:h-[55px] p-[10px] bg-[#febb02] rounded-lg flex md:flex-row flex-col items-center justify-around gap-2 ">
-                <span onClick={() => handleShowModal(categories, 'category')} className="flex-1 cursor-pointer">
+                <span
+                    onClick={() => handleShowModal(categories, 'category', 'Tìm tất cả')}
+                    className="flex-1 cursor-pointer"
+                >
                     <SearchItem
                         IconBefore={<MdOutlineHouseSiding />}
                         fontWeight
                         IconAfter={<BsChevronRight color="rgb(156,163,175)" />}
-                        text="Phòng trọ, nhà trọ"
+                        text={queries.category}
+                        defaultText={'Tìm tất cả'}
                     />
                 </span>
-                <span onClick={() => handleShowModal(provinces, 'province')} className="flex-1 cursor-pointer">
+                <span
+                    onClick={() => handleShowModal(provinces, 'province', 'Toàn quốc')}
+                    className="flex-1 cursor-pointer"
+                >
                     <SearchItem
                         IconBefore={<HiOutlineLocationMarker />}
                         IconAfter={<BsChevronRight color="rgb(156,163,175)" />}
-                        text="Toàn quốc"
+                        text={queries.province}
+                        defaultText={'Toàn quốc'}
                     />
                 </span>
-                <span onClick={() => handleShowModal(prices, 'price')} className="flex-1 cursor-pointer">
+                <span onClick={() => handleShowModal(prices, 'price', 'Chọn giá')} className="flex-1 cursor-pointer">
                     <SearchItem
                         IconBefore={<TbReportMoney />}
                         IconAfter={<BsChevronRight color="rgb(156,163,175)" />}
-                        text="Chọn giá"
+                        text={queries.price}
+                        defaultText={'Chọn giá'}
                     />
                 </span>
-                <span onClick={() => handleShowModal(areas, 'area')} className="flex-1 cursor-pointer">
+                <span
+                    onClick={() => handleShowModal(areas, 'area', 'Chọn diện tích')}
+                    className="flex-1 cursor-pointer"
+                >
                     <SearchItem
                         IconBefore={<RiCrop2Line />}
                         IconAfter={<BsChevronRight color="rgb(156,163,175)" />}
-                        text="Chọn diện tích"
+                        text={queries.area}
+                        defaultText={'Chọn diện tích'}
                     />
                 </span>
                 <button

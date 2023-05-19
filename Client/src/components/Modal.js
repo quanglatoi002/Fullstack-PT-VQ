@@ -127,28 +127,52 @@ const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax
                     </span>
                 </div>
                 {(name === 'category' || name === 'province') && (
-                    <div className="p-4 flex flex-col ">
-                        {content?.map((item) => (
-                            <span key={item.code} className="flex items-center py-2 gap-2 border-b border-gray-200">
-                                <input type="radio" id={item.code} name={name} value={item.code} />
-                                <label htmlFor={item.code}>{item.value}</label>
-                            </span>
-                        ))}
+                    <div className="p-4 flex flex-col">
+                        <span className="py-2 flex gap-2 items-center border-b border-gray-200">
+                            <input
+                                type="radio"
+                                name={name}
+                                value={defaultText || ''}
+                                id="default"
+                                checked={!queries[`${name}Code`] ? true : false}
+                                onChange={(e) => handleSubmit(e, { [name]: defaultText, [`${name}Code`]: null })}
+                            />
+                            <label htmlFor="default">{defaultText}</label>
+                        </span>
+                        {content?.map((item) => {
+                            return (
+                                <span key={item.code} className="py-2 flex gap-2 items-center border-b border-gray-200">
+                                    <input
+                                        type="radio"
+                                        name={name}
+                                        id={item.code}
+                                        value={item.code}
+                                        checked={item.code === queries[`${name}Code`] ? true : false}
+                                        onChange={(e) =>
+                                            handleSubmit(e, { [name]: item.value, [`${name}Code`]: item.code })
+                                        }
+                                    />
+                                    <label htmlFor={item.code}>{item.value}</label>
+                                </span>
+                            );
+                        })}
                     </div>
                 )}
                 {(name === 'price' || name === 'area') && (
                     <div className="p-12 py-20">
                         <div className="flex flex-col items-center justify-center relative">
                             <div className="z-30 absolute top-[-48px] font-medium text-xl text-orange-600">
-                                {`Từ ${
-                                    presentOne <= presentTwo
-                                        ? convert100toTarget(presentOne)
-                                        : convert100toTarget(presentTwo)
-                                } - ${
-                                    presentTwo >= presentOne
-                                        ? convert100toTarget(presentTwo)
-                                        : convert100toTarget(presentOne)
-                                } ${name === 'price' ? 'triệu' : 'm2'}`}
+                                {presentOne === 100 && presentTwo === 100
+                                    ? `Trên ${convert100toTarget(presentOne)} ${name === 'price' ? 'triệu' : 'm2'} +`
+                                    : `Từ ${
+                                          presentOne <= presentTwo
+                                              ? convert100toTarget(presentOne)
+                                              : convert100toTarget(presentTwo)
+                                      } - ${
+                                          presentTwo >= presentOne
+                                              ? convert100toTarget(presentTwo)
+                                              : convert100toTarget(presentOne)
+                                      } ${name === 'price' ? 'triệu' : 'm2'}`}
                             </div>
                             <div
                                 onClick={handleClickStack}
@@ -215,7 +239,7 @@ const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax
                                         <button
                                             key={item.code}
                                             onClick={() => handleActive(item.code, item.value)}
-                                            className={`px-4 py-2 w-full lg:w-[121px] lg:h-[50px] bg-gray-200 rounded-md cursor-pointer ${
+                                            className={`px-4 py-2 w-full lg:w-[186px] lg:h-[50px] bg-gray-200 rounded-md cursor-pointer ${
                                                 item.code === activeEl ? 'bg-blue-500 text-white' : ''
                                             }`}
                                         >
