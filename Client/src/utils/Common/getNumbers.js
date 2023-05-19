@@ -7,5 +7,8 @@ export const getNumbersPrice = (string) =>
 export const getNumbersArea = (string) =>
     string
         .split(' ')
+        // '/' được sử dụng để bắt đầu và kết thúc biểu thức chính quy trong Js
+        // '\d' mẫu ký tự cho 1 chữ số (0-9)
+        // '+' đứng sau "\d" chỉ ra rằng 1 hoặc nhiu chữ số có thể xuất hiện liên tiếp.
         .map((item) => +item.match(/\d+/))
         .filter((item) => item !== 0);

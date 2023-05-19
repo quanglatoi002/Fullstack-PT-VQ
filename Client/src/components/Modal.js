@@ -84,18 +84,17 @@ const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax
                 setPresentTwo(100);
             }
         }
+        //Kết quả trả về có 2 số [1,2]
         if (arrMaxMin.length === 2) {
             setPresentOne(convertResultTo100(arrMaxMin[0]));
             setPresentTwo(convertResultTo100(arrMaxMin[1]));
         }
     };
+    //handleBeforeSubmit
     const handleBeforeSubmit = (e) => {
         let min = presentOne <= presentTwo ? presentOne : presentTwo;
         let max = presentOne <= presentTwo ? presentTwo : presentOne;
         let arrMinMax = [convert100toTarget(min), convert100toTarget(max)];
-        // const gaps = name === 'price'
-        //     ? getCodes(arrMinMax, content)
-        //     : name === 'area' ? getCodesArea(arrMinMax, content) : []
         handleSubmit(
             e,
             {
@@ -149,7 +148,7 @@ const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax
                                     presentTwo >= presentOne
                                         ? convert100toTarget(presentTwo)
                                         : convert100toTarget(presentOne)
-                                } triệu +`}
+                                } ${name === 'price' ? 'triệu' : 'm2'}`}
                             </div>
                             <div
                                 onClick={handleClickStack}
@@ -210,13 +209,13 @@ const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax
                         </div>
                         <div className="lg:mt-24 mt-16">
                             <h4 className="font-medium mb-4">Chọn nhanh:</h4>
-                            <div className="flex gap-2 items-center flex-wrap w-full">
+                            <div className="flex gap-2 items-center flex-wrap">
                                 {content?.map((item) => {
                                     return (
                                         <button
                                             key={item.code}
                                             onClick={() => handleActive(item.code, item.value)}
-                                            className={`px-4 py-2 bg-gray-200 rounded-md cursor-pointer ${
+                                            className={`px-4 py-2 w-full lg:w-[121px] lg:h-[50px] bg-gray-200 rounded-md cursor-pointer ${
                                                 item.code === activeEl ? 'bg-blue-500 text-white' : ''
                                             }`}
                                         >
