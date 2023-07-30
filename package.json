@@ -1,6 +1,9 @@
 {
   "dependencies": {
+    "@react-google-maps/api": "^2.18.1",
+    "google-map-react": "^2.2.1",
     "moment": "^2.29.4",
+    "react-google-places-autocomplete": "^4.0.1",
     "redux-persist-transform-encrypt": "^4.0.0"
   }
 }
