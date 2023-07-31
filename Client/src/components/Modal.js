@@ -46,7 +46,9 @@ const Modal = ({ setIsShowModal, content, name, handleSubmit, queries, arrMinMax
         // lấy giá trị tuyệt đối của cả 2 present nếu present nào có giá trị nhỏ hơn giá trị còn lại thì lúc nhấn chuột thì present ở bên nhỏ hơn sẽ phải di chuyển
         if (Math.abs(percent - presentOne) <= Math.abs(percent - presentTwo)) {
             setPresentOne(percent);
-        } else setPresentTwo(percent);
+        } else {
+            setPresentTwo(percent);
+        }
     };
     //vd ta present lúc này = 30 * 1.5 = 50 / 5 = 10 * 5 = 50 / 10 = 5
     // 10% => 1.5
