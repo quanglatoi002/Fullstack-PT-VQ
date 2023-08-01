@@ -18,16 +18,13 @@ const List = ({ categoryCode }) => {
         }
         // sau đó dùng map để chuyển từ 1 mảng thành 1 obj
         let searchParamsObject = {};
-        params?.map((i) => {
-            searchParamsObject = { ...searchParamsObject, [i[0]]: i[1] };
+        params?.forEach((i) => {
+            if (Object.keys(searchParamsObject)?.some((item) => item === i[0])) {
+                searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]];
+            } else {
+                searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] };
+            }
         });
-        // params?.forEach((i) => {
-        //     if (Object.keys(searchParamsObject)?.some((item) => item === i[0])) {
-        //         searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]];
-        //     } else {
-        //         searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] };
-        //     }
-        // });
         if (categoryCode) searchParamsObject.categoryCode = categoryCode;
         dispatch(getPostsLimit(searchParamsObject));
     }, [dispatch, searchParams, categoryCode]);

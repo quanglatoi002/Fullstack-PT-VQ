@@ -20,9 +20,6 @@ const PageNumber = ({ text, currentPage, icon, setCurrentPage, type }) => {
         }
         //Phải chuyển đoạn arr trên thành obj
         let searchParamsObject = {};
-        // params?.map((i) => {
-        //     searchParamsObject = { ...searchParamsObject, [i[0]]: i[1] };
-        // });
         params?.forEach((i) => {
             if (Object.keys(searchParamsObject)?.some((item) => item === i[0] && item !== 'page')) {
                 searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]];

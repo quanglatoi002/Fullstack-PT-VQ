@@ -4,7 +4,7 @@ import icons from '~/utils/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, createSearchParams, useLocation } from 'react-router-dom';
 import { path } from '../../utils/constant';
-import { getCodePrice, getCodes } from '../../utils/Common/getCodes';
+
 const { BsChevronRight, HiOutlineLocationMarker, TbReportMoney, RiCrop2Line, MdOutlineHouseSiding, FiSearch } = icons;
 const Search = () => {
     const navigate = useNavigate();
@@ -43,40 +43,34 @@ const Search = () => {
         [isShowModal, queries],
     );
     console.log(queries);
-    console.log(Object.entries(queries).filter((item) => item[0].includes('Code')));
     const handleSearch = () => {
-        //lọc ra các key có từ khóa 'Code' thì lấy
-        const queryCodes = Object.entries(queries).filter((item) => item[0].includes('Code'));
-
-        let objData = {};
-        for (const [key, value] of queryCodes) {
-            objData[key] = value;
-        }
-        //         .filter((item) => item[0].includes('Number') || item[0].includes('Code'))
-        //         .filter((item) => item[1]);
-        //     let queryCodesObj = {};
-        //     queryCodes.forEach((item) => {
-        //         queryCodesObj[item[0]] = item[1];
-        //     });
-        //     const queryText = Object.entries(queries).filter(
-        //         (item) => !item[0].includes('Code') || !item[0].includes('Number'),
-        //     );
-        //     let queryTextObj = {};
-        //     queryText.forEach((item) => {
-        //         queryTextObj[item[0]] = item[1];
-        //     });
-        //     let titleSearch = `${queryTextObj.category ? queryTextObj.category : 'Cho thuê tất cả'} ${
-        //         queryTextObj.province ? `tỉnh ${queryTextObj.province}` : ''
-        //     } ${queryTextObj.price ? `giá ${queryTextObj.price}` : ''} ${
-        //         queryTextObj.area ? `diện tích ${queryTextObj.area}` : ''
-        //     } `;
-        //     navigate(
-        //         {
-        //             pathname: path.SEARCH,
-        //             search: createSearchParams(queryCodesObj).toString(),
-        //         },
-        //         { state: { titleSearch } },
-        //     );
+        // chuyển nó thành mảng với Object.entries và lấy ra những tk có tồn tại những từ 'Number' và 'Code', và từ những tk đó ta lại tiếp tục filter ra để lấy giá trị của nó
+        const queryCodes = Object.entries(queries)
+            .filter((item) => item[0].includes('Number') || item[0].includes('Code'))
+            .filter((item) => item[1]);
+        let queryCodesObj = {};
+        queryCodes.forEach((item) => {
+            queryCodesObj[item[0]] = item[1];
+        });
+        const queryText = Object.entries(queries).filter(
+            (item) => !item[0].includes('Code') || !item[0].includes('Number'),
+        );
+        let queryTextObj = {};
+        queryText.forEach((item) => {
+            queryTextObj[item[0]] = item[1];
+        });
+        let titleSearch = `${queryTextObj.category ? queryTextObj.category : 'Cho thuê tất cả'} ${
+            queryTextObj.province ? `tỉnh ${queryTextObj.province}` : ''
+        } ${queryTextObj.price ? `giá ${queryTextObj.price}` : ''} ${
+            queryTextObj.area ? `diện tích ${queryTextObj.area}` : ''
+        } `;
+        navigate(
+            {
+                pathname: path.SEARCH,
+                search: createSearchParams(queryCodesObj).toString(),
+            },
+            { state: { titleSearch } },
+        );
     };
     return (
         <>
