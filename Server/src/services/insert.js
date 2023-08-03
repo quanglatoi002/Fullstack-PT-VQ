@@ -8,7 +8,7 @@ import chothuematbang from "../../data/chothuematbang.json";
 import chothuephongtro from "../../data/chothuephongtro.json";
 import nhachothue from "../../data/nhachothue.json";
 import generateCode from "../utils/generateCode";
-import { getNumberFromString } from "../utils/common";
+import { getNumberFromString, getNumberFromStringV2 } from "../utils/common";
 import { dataPrice, dataArea } from "../utils/data";
 
 console.log(dataPrice);
@@ -98,6 +98,12 @@ export const insertService = () =>
                                 price.min <= currentPrice
                         )?.code,
                         provinceCode,
+                        priceNumber: getNumberFromStringV2(
+                            item?.header?.attributes?.price
+                        ),
+                        areaNumber: getNumberFromStringV2(
+                            item?.header?.attributes?.acreage
+                        ),
                     });
                     await db.Attribute.create({
                         id: attributesId,

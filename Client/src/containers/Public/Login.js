@@ -99,84 +99,86 @@ const Login = () => {
     };
 
     return (
-        <div className="bg-white w-[600px] p-[30px] pb-[100px] rounded-lg border-borderLogin border-solid shadow-md mt-5">
-            <h3 className="text-2xl font-semibold text-center mb-3">{isRegister ? 'Register account' : 'Login'}</h3>
-            <div className="flex flex-col gap-5">
-                {isRegister && (
+        <div className="w-full flex justify-center">
+            <div className="bg-white w-[600px] p-[30px] pb-[100px] rounded-lg border-borderLogin border-solid shadow-md mt-5">
+                <h3 className="text-2xl font-semibold text-center mb-3">{isRegister ? 'Register account' : 'Login'}</h3>
+                <div className="flex flex-col gap-5">
+                    {isRegister && (
+                        <InputForm
+                            invalidFields={invalidFields}
+                            setInvalidFields={setInvalidFields}
+                            label="FULL NAME"
+                            placeholder="Enter full name"
+                            value={payload.name}
+                            setValue={setPayload}
+                            keyPayload={'name'}
+                        />
+                    )}
                     <InputForm
                         invalidFields={invalidFields}
                         setInvalidFields={setInvalidFields}
-                        label="FULL NAME"
-                        placeholder="Enter full name"
-                        value={payload.name}
+                        label="PHONE"
+                        placeholder="Enter phone number"
+                        value={payload.phone}
                         setValue={setPayload}
-                        keyPayload={'name'}
+                        keyPayload={'phone'}
                     />
-                )}
-                <InputForm
-                    invalidFields={invalidFields}
-                    setInvalidFields={setInvalidFields}
-                    label="PHONE"
-                    placeholder="Enter phone number"
-                    value={payload.phone}
-                    setValue={setPayload}
-                    keyPayload={'phone'}
-                />
-                <InputForm
-                    invalidFields={invalidFields}
-                    setInvalidFields={setInvalidFields}
-                    label="PASSWORD"
-                    placeholder="Enter password"
-                    value={payload.password}
-                    setValue={setPayload}
-                    keyPayload={'password'}
-                    type="password"
-                />
-                <Button
-                    text={isRegister ? 'Register account' : 'Login'}
-                    bgColor="bg-secondary1"
-                    textColor="text-white"
-                    fullWidth
-                    onClick={handleSubmit}
-                />
-                <div className="flex justify-between">
-                    {isRegister ? (
-                        <span>
-                            Do you have an account yet?
-                            <span
-                                onClick={() => {
-                                    setIsRegister(false);
-                                    setPayload({
-                                        phone: '',
-                                        password: '',
-                                        name: '',
-                                    });
-                                }}
-                                className="text-blue-500 hover:underline cursor-pointer"
-                            >
-                                Login now
+                    <InputForm
+                        invalidFields={invalidFields}
+                        setInvalidFields={setInvalidFields}
+                        label="PASSWORD"
+                        placeholder="Enter password"
+                        value={payload.password}
+                        setValue={setPayload}
+                        keyPayload={'password'}
+                        type="password"
+                    />
+                    <Button
+                        text={isRegister ? 'Register account' : 'Login'}
+                        bgColor="bg-secondary1"
+                        textColor="text-white"
+                        fullWidth
+                        onClick={handleSubmit}
+                    />
+                    <div className="flex justify-between">
+                        {isRegister ? (
+                            <span>
+                                Do you have an account yet?
+                                <span
+                                    onClick={() => {
+                                        setIsRegister(false);
+                                        setPayload({
+                                            phone: '',
+                                            password: '',
+                                            name: '',
+                                        });
+                                    }}
+                                    className="text-blue-500 hover:underline cursor-pointer"
+                                >
+                                    Login now
+                                </span>
                             </span>
-                        </span>
-                    ) : (
-                        <>
-                            <span className="text-secondary1 hover:text-secondary3 cursor-pointer">
-                                Forgot your password?
-                            </span>
-                            <span
-                                onClick={() => {
-                                    setIsRegister(true);
-                                    setPayload({
-                                        phone: '',
-                                        password: '',
-                                        name: '',
-                                    });
-                                }}
-                                className="text-secondary1 hover:text-secondary3 cursor-pointer"
-                            >
-                                Create a new account
-                            </span>
-                        </>
-                    )}
+                        ) : (
+                            <>
+                                <span className="text-secondary1 hover:text-secondary3 cursor-pointer">
+                                    Forgot your password?
+                                </span>
+                                <span
+                                    onClick={() => {
+                                        setIsRegister(true);
+                                        setPayload({
+                                            phone: '',
+                                            password: '',
+                                            name: '',
+                                        });
+                                    }}
+                                    className="text-secondary1 hover:text-secondary3 cursor-pointer"
+                                >
+                                    Create a new account
+                                </span>
+                            </>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
