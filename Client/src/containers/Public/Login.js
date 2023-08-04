@@ -99,7 +99,7 @@ const Login = () => {
     };
 
     return (
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center items-center">
             <div className="bg-white w-[600px] p-[30px] pb-[100px] rounded-lg border-borderLogin border-solid shadow-md mt-5">
                 <h3 className="text-2xl font-semibold text-center mb-3">{isRegister ? 'Register account' : 'Login'}</h3>
                 <div className="flex flex-col gap-5">

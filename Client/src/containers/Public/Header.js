@@ -15,6 +15,8 @@ const Header = () => {
     const headerRef = useRef();
     const [searchParams] = useSearchParams();
     const { isLoggedIn } = useSelector((state) => state.auth);
+    const { currentData } = useSelector((state) => state.user);
+
     const goLogin = useCallback((flag) => {
         navigate(path.LOGIN, { state: { flag } });
     }, []);
@@ -52,7 +54,7 @@ const Header = () => {
                 )}
                 {isLoggedIn && (
                     <div className="flex items-center gap-1">
-                        <span className="text-[16px] mr-[10px]">Ten !</span>
+                        <span className="text-[16px] mr-[10px]">{currentData.name}</span>
                         <Button
                             text={'Logout'}
                             textColor="text-white"

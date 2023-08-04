@@ -32,7 +32,7 @@ export const registerService = ({ phone, password, name }) =>
                         phone: response[0].phone,
                     },
                     process.env.SECRET_KEY,
-                    { expiresIn: "100d" } //expiry in 2 days
+                    { expiresIn: "2d" } //expiry in 2 days
                 );
             resolve({
                 err: token ? 0 : 2,
