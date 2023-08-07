@@ -8,8 +8,8 @@ export const path = {
     CHO_THUE_PHONG_TRO: 'cho-thue-phong-tro',
     DETAIL_POST__TITLE__POSTID: 'chi-tiet/:title/:postId',
     SEARCH: 'tim-kiem',
-    // SYSTEM: '/he-thong/*',
-    // CREATE_POST: 'tao-moi-bai-dang',
+    SYSTEM: '/he-thong/*',
+    CREATE_POST: 'tao-moi-bai-dang',
 };
 export const text = {
     HOME_TITLE: 'Kênh thông tin Phòng Trọ số 1 Việt Nam',

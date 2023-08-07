@@ -1,15 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import logo from '~/assets/logo1.png';
-import { Button } from '~/components';
+import { Button, User } from '~/components';
 import icons from '~/utils/icons';
 import { path } from '~/utils/constant';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '~/store/actions';
 import menuManage from '~/utils/menuManage';
-import { AiOutlineLogout } from 'react-icons/ai';
 
-const { AiOutlinePlusCircle } = icons;
+const { AiOutlinePlusCircle, AiOutlineLogout, BsChevronDown } = icons;
 
 const Header = () => {
     const [isShowMenu, setIsShowMenu] = useState(false);
@@ -58,13 +57,14 @@ const Header = () => {
                 )}
                 {isLoggedIn && (
                     <div className="flex items-center gap-1 relative">
-                        <span className="text-[16px] mr-[10px]">{currentData.name}</span>
+                        <User />
                         <Button
                             onClick={() => setIsShowMenu((prev) => !prev)}
                             text={'Quản lý tài khoản'}
                             textColor="text-white"
                             bgColor="bg-blue-700"
                             px={'px-4'}
+                            IcAfter={BsChevronDown}
                         />
                         {isShowMenu && (
                             <div className="absolute border border-red-600 bg-white rounded-md shadow-md p-4 top-full right-0 min-w-[200px] flex flex-col">

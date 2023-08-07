@@ -9,7 +9,7 @@ import { formatVietnameseToString } from '~/utils/Common/formatVietnameseToStrin
 const notActive = 'hover:bg-secondary2 h-full flex items-center px-4 bg-secondary1';
 const active = 'hover:bg-secondary2 h-full flex items-center  px-4 bg-secondary2';
 
-const Navigation = () => {
+const Navigation = ({ isAdmin }) => {
     // const [categories, setCategories] = useState([]);
     const dispatch = useDispatch();
     const { categories } = useSelector((state) => state.app);
@@ -25,7 +25,11 @@ const Navigation = () => {
         dispatch(actions.getCategories());
     }, [dispatch]);
     return (
-        <div className=" w-full md:flex hidden lg:justify-center items-center h-[40px] text-white bg-secondary1">
+        <div
+            className={`w-full md:flex hidden ${
+                isAdmin ? 'justify-start' : 'lg:justify-center justify-start'
+            } items-center h-[40px] text-white bg-secondary1`}
+        >
             <div className="max-w-1100 lg:odd:mr-[30.5rem] lg:mx-0 h-full flex items-center text-sm font-medium ">
                 <NavLink to={`/`} className={({ isAcctive }) => (isAcctive ? active : notActive)}>
                     Trang chủ
