@@ -1,4 +1,6 @@
 import jwt from "jsonwebtoken";
+require("dotenv").config();
+
 const verifyToken = (req, res, next) => {
     let accessToken = req.headers.authorization?.split(" ")[1];
     if (!accessToken)
@@ -6,7 +8,6 @@ const verifyToken = (req, res, next) => {
             err: 1,
             msg: "Missing access token",
         });
-
     jwt.verify(accessToken, process.env.SECRET_KEY, (err, user) => {
         if (err)
             return res.status(401).json({
@@ -15,6 +16,7 @@ const verifyToken = (req, res, next) => {
             });
 
         req.user = user;
+        // next() được dùng để chuyển quyền điều khiển từ 1 middleware sang middleware tiếp theo.
         next();
     });
 };

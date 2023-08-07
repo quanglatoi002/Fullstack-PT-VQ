@@ -8,9 +8,9 @@ import authMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 import { persistReducer } from 'redux-persist';
 import { encryptTransform } from 'redux-persist-transform-encrypt';
 
-const encryptForm = encryptTransform({
-    secretKey: process.env.REACT_APP_SECRET_KEY,
-});
+// const encryptForm = encryptTransform({
+//     secretKey: process.env.REACT_APP_SECRET_KEY,
+// });
 
 const commonConfig = {
     storage,
@@ -24,7 +24,7 @@ const authConfig = {
     // whitelist -->which reducer want save in persistence storage
     //blacklist --> which reducer not want save in persistence storage
     whitelist: ['isLoggedIn', 'token'], //display whitelist
-    transforms: [encryptForm],
+    // transforms: [encryptForm],
 };
 
 // combine the reducer together

@@ -10,6 +10,7 @@ import { apiGetCurrent } from '~/services/user';
 const Home = () => {
     const dispatch = useDispatch();
     const { isLoggedIn } = useSelector((state) => state.auth);
+    const { currentData } = useSelector((state) => state.user);
 
     useEffect(() => {
         dispatch(actions.getPrices());
@@ -22,6 +23,7 @@ const Home = () => {
             isLoggedIn && dispatch(actions.getCurrent());
         }, 100);
     }, [dispatch, isLoggedIn]);
+    console.log(currentData);
     return (
         <div className="w-full flex flex-col items-center border  bg-primary px-0.5">
             <Header />
