@@ -1,9 +1,21 @@
+import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Home, Login, Rental, Homepage, DetailPost, SearchDetail } from '~/containers/Public';
+import { DetailPost, Home, Homepage, Login, Rental, SearchDetail } from '~/containers/Public';
 import { path } from '~/utils/constant';
-import { System, CreatePost } from './containers/System';
+import { CreatePost, System } from './containers/System';
+import { useDispatch, useSelector } from 'react-redux';
+import * as actions from '~/store/actions';
 
 function App() {
+    const dispatch = useDispatch();
+    const { isLoggedIn } = useSelector((state) => state.auth);
+
+    useEffect(() => {
+        setTimeout(() => {
+            isLoggedIn && dispatch(actions.getCurrent());
+        }, 100);
+    }, [dispatch, isLoggedIn]);
+
     return (
         <div className="">
             <Routes>

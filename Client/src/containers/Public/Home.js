@@ -1,16 +1,14 @@
-import Header from './Header';
-import { Outlet } from 'react-router-dom';
-import { Navigation, Search } from './index';
-import { Intro, Contact } from '../../components';
 import { useEffect } from 'react';
-import * as actions from '../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { apiGetCurrent } from '~/services/user';
+import { Outlet } from 'react-router-dom';
+import { Contact, Intro } from '../../components';
+import * as actions from '../../store/actions';
+import Header from './Header';
+import { Navigation, Search } from './index';
 
 const Home = () => {
     const dispatch = useDispatch();
     const { isLoggedIn } = useSelector((state) => state.auth);
-    const { currentData } = useSelector((state) => state.user);
 
     useEffect(() => {
         dispatch(actions.getPrices());
@@ -18,12 +16,6 @@ const Home = () => {
         dispatch(actions.getProvinces());
     }, [dispatch]);
 
-    useEffect(() => {
-        setTimeout(() => {
-            isLoggedIn && dispatch(actions.getCurrent());
-        }, 100);
-    }, [dispatch, isLoggedIn]);
-    console.log(currentData);
     return (
         <div className="w-full flex flex-col items-center border  bg-primary px-0.5">
             <Header />

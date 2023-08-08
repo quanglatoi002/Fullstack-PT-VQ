@@ -6,8 +6,8 @@ import { NavLink } from 'react-router-dom';
 import * as actions from '../../store/actions';
 import { AiOutlineLogout } from 'react-icons/ai';
 
-const activeStyle = 'hover:bg-gray-200 flex  rounded-md items-center gap-2 py-2 font-bold bg-gray-200';
-const notActiceStyle = 'hover:bg-gray-200 flex  rounded-md items-center gap-2 py-2 cursor-pointer';
+const activeStyle = 'hover:bg-gray-200 flex  rounded-md items-center gap-2 py-2 font-semibold bg-gray-200';
+const notActiceStyle = 'hover:bg-gray-200 flex  rounded-md items-center gap-2 py-2 cursor-pointer b';
 
 const Sidebar = () => {
     const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const Sidebar = () => {
                     <small className="font-medium">{currentData?.id?.match(/\d/g).join('')?.slice(0, 6)}</small>
                 </span>
             </div>
-            <div>
+            <div className="flex flex-col gap-2">
                 {menuSidebar.map((item) => {
                     return (
                         <NavLink

@@ -94,7 +94,7 @@ const Header = () => {
                 )}
 
                 <Button
-                    text={'New content'}
+                    text={'Đăng tin mới'}
                     textColor="text-white"
                     bgColor="bg-secondary2"
                     IcAfter={AiOutlinePlusCircle}

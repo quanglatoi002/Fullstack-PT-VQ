@@ -6,7 +6,7 @@ const User = () => {
     const { currentData } = useSelector((state) => state.user);
 
     return (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 mr-5">
             <img
                 src={currentData?.avatar || anonAvatar}
                 alt="avatar"
@@ -17,7 +17,8 @@ const User = () => {
                     Xin chào, <span className="font-semibold">{currentData?.name}</span>
                 </span>
                 <span>
-                    Mã tài khoản: <span className="font-medium">{`${currentData?.id?.slice(0, 10)}...`}</span>
+                    Mã tài khoản:{' '}
+                    <span className="font-medium">{`${currentData?.id?.match(/\d/g).join('')?.slice(0, 6)}`}</span>
                 </span>
             </div>
         </div>
