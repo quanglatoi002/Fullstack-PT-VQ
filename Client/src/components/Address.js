@@ -4,9 +4,10 @@ import { apiGetPublicProvinces, apiGetPublicDistrict } from '~/services';
 
 const Address = () => {
     const [provinces, setProvinces] = useState([]);
+    const [districts, setDistricts] = useState([]);
     const [province, setProvince] = useState();
     const [district, setDistrict] = useState();
-    console.log(district, province);
+    const [reset, setReset] = useState(false);
 
     useEffect(() => {
         const fetchPublicProvince = async () => {
@@ -21,10 +22,13 @@ const Address = () => {
         const fetchPublicDistrict = async () => {
             const response = await apiGetPublicDistrict(province);
             if (response.status === 200) {
-                setDistrict(response?.data?.results);
+                setDistricts(response?.data?.results);
             }
         };
-        province && fetchPublicDistrict(province);
+        setDistrict(null);
+        province && fetchPublicDistrict();
+        !province ? setReset(true) : setReset(false);
+        !province && setDistricts([]);
     }, [province]);
 
     return (
@@ -33,17 +37,32 @@ const Address = () => {
             <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-4">
                     <SelectAddress
+                        type="province"
                         value={province}
                         setValue={setProvince}
                         label="Tỉnh/Thành phố"
                         className="flex-1"
                         options={provinces}
                     />
-                    <SelectAddress value={district} setValue={setDistrict} label="Quận/Huyện" className="flex-1" />
+                    <SelectAddress
+                        reset={reset}
+                        type="district"
+                        value={district}
+                        setValue={setDistrict}
+                        label="Quận/Huyện"
+                        className="flex-1"
+                        options={districts}
+                    />
                 </div>
-                <div>
+                <div className="flex flex-col gap-2">
+                    <label className="font-medium" htmlFor="exactly-address">
+                        Địa chỉ chính xác
+                    </label>
                     <input
-                        value={123}
+                        id="exactly-address"
+                        value={` ${
+                            district ? districts?.find((item) => item.district_id === district)?.district_name : ''
+                        } ${province ? provinces?.find((item) => item.province_id === province)?.province_name : ''}`}
                         type="text"
                         readOnly
                         className="border border-gray-200 rounded-md bg-gray-100 p-2 w-full outline-none"
