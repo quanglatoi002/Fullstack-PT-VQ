@@ -14,17 +14,24 @@ const List = ({ categoryCode }) => {
         let params = [];
         // lặp qua các cặp key-value của tham số truy vấn
         for (let entry of searchParams.entries()) {
+            console.log(entry);
             params.push(entry);
         }
         // sau đó dùng map để chuyển từ 1 mảng thành 1 obj
         let searchParamsObject = {};
+        console.log(params);
+
         params?.forEach((i) => {
+            console.log(i[0]);
             if (Object.keys(searchParamsObject)?.some((item) => item === i[0])) {
                 searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]];
+                console.log((searchParamsObject[i[0]] = [...searchParamsObject[i[0]], i[1]]));
             } else {
-                searchParamsObject = { ...searchParamsObject, [i[0]]: [i[1]] };
+                searchParamsObject = { ...searchParamsObject, [i[0]]: i[1] };
+                console.log((searchParamsObject = { [i[0]]: i[1] }));
             }
         });
+        console.log(searchParamsObject);
         if (categoryCode) searchParamsObject.categoryCode = categoryCode;
         dispatch(getPostsLimit(searchParamsObject));
     }, [dispatch, searchParams, categoryCode]);
